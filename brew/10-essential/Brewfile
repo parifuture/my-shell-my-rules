@@ -15,6 +15,7 @@ brew "go"
 
 # Dev tools
 brew "gh"           # GitHub CLI
+brew "awscli"       # AWS CLI
 brew "git-delta"    # beautiful git diffs
 brew "btop"         # system monitor
 brew "jesseduffield/lazygit/lazygit"
