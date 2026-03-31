@@ -2,9 +2,6 @@
 # Core terminal tools — install these first on any new machine
 # Usage: brew bundle --file=~/code/my-shell-my-rules/brew/00-base/Brewfile
 
-tap "homebrew/bundle"
-tap "homebrew/services"
-
 # Shell
 brew "bash"               # macOS ships with bash 3.2 (2007) due to GPL licensing
 brew "zsh-autosuggestions"

@@ -2,8 +2,6 @@
 # Daily driver tools
 # Usage: brew bundle --file=~/code/my-shell-my-rules/brew/10-essential/Brewfile
 
-tap "homebrew/bundle"
-tap "homebrew/services"
 tap "jesseduffield/lazygit"
 
 # Fonts
@@ -35,14 +33,17 @@ brew "glab"              # GitLab CLI
 brew "gitlab-runner"     # run GitLab CI pipelines locally
 cask "1password"         # password manager app
 brew "1password-cli"     # op CLI — biometric unlock after connecting in app settings
-brew "pgenv"             # manage multiple postgres versions (pgenv use 14.12)
+brew "postgresql@17"     # latest postgres (17.x)
 brew "pgvector"          # Postgres vector extension (AI/embeddings)
 brew "git-delta"         # beautiful git diffs
+brew "neovim"            # text editor — using kickstart.nvim config (beginner-friendly)
 brew "btop"              # system monitor
 brew "jesseduffield/lazygit/lazygit"
 brew "fastfetch"         # system info on shell start
-brew "kanata"            # keyboard remapper — app switcher layer + AirPods chord
+# kanata — NOT available via brew (cmd_allowed variant required, brew build lacks it)
+# Install manually: see README post-installation steps
 brew "switchaudio-osx"   # CLI audio source switcher, used by kanata AirPods chord
+cask "karabiner-elements" # provides the virtual HID driver required by kanata
 
 # Kubernetes & DevOps
 brew "helm"

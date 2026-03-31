@@ -76,7 +76,6 @@ brew/15-nice-to-haves/Brewfile ← optional but wanted apps
 | **lazygit** | Git TUI | Visual git interface, aliased as `lg` |
 | **yazi** | Terminal file manager | Navigate dirs visually, image previews via Kitty Graphics Protocol |
 | **kanata** | Keyboard remapper | App switcher layer (hold Enter), AirPods connect chord (a+i+r) |
-| **eligere** | Browser picker | Routes links to specific browsers by domain (ea.com → Chrome, everything else → picker) |
 | **btop** | System monitor | Beautiful terminal system monitor with custom theme |
 | **fastfetch** | System info on shell start | Shows hardware/software info with image on every new terminal |
 

@@ -96,13 +96,24 @@ source ~/.zshrc
   brew services start sketchybar
   ```
 
-- [ ] **Kanata** — requires accessibility permissions and needs to run as a background service:
+- [ ] **Kanata** — the Homebrew formula does not include the `cmd` feature needed for app switching.
+  Install the `cmd_allowed` binary manually from the GitHub release:
   ```sh
-  # Grant accessibility permissions in System Settings → Privacy & Security → Accessibility → add kanata
-  # Then start it as a service
-  sudo brew services start kanata
+  curl -L -o /tmp/kanata.zip \
+    https://github.com/jtroo/kanata/releases/download/v1.11.0/macos-binaries-arm64.zip
+  unzip /tmp/kanata.zip -d /tmp/kanata/
+  sudo cp /tmp/kanata/kanata_macos_cmd_allowed_arm64 /opt/homebrew/bin/kanata
+  sudo chmod +x /opt/homebrew/bin/kanata
+  ```
+  Then grant accessibility permissions: `System Settings → Privacy & Security → Accessibility` → click `+` → `Cmd+Shift+G` → type `/opt/homebrew/bin/` → select `kanata`.
+
+  Run it:
+  ```sh
+  sudo kanata --cfg ~/.config/kanata/kanata.kbd
   ```
   The AirPods chord is `a+i+r` pressed simultaneously. Update `'AirPods Pro'` in `kanata/kanata.kbd` to match your exact AirPods name if different.
+
+  > **Upgrades**: `brew upgrade` won't update this. Check [github.com/jtroo/kanata/releases](https://github.com/jtroo/kanata/releases) manually and re-run the steps above with the new version.
 
 - [ ] **Neovim** — on first launch, install all plugins automatically:
   ```sh
