@@ -146,6 +146,16 @@ if command -v kubectl &>/dev/null; then
   source <(kubectl completion zsh)
 fi
 
+# Google Cloud SDK
+if command -v brew &>/dev/null; then
+  if [ -f "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc" ]; then
+    source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
+  fi
+  if [ -f "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc" ]; then
+    source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
+  fi
+fi
+
 # Starship prompt
 if command -v starship &>/dev/null; then
   type starship_zle-keymap-select >/dev/null ||

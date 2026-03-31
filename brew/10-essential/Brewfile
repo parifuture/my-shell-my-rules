@@ -12,23 +12,47 @@ cask "sf-symbols"
 
 # Languages
 brew "go"
+brew "deno"
+
+# Node package managers
+brew "pnpm"
+
+# JS/TS tooling
+brew "biome"             # fast formatter + linter (replaces ESLint + Prettier in modern stacks)
+
+# Go tooling
+brew "gopls"             # Go language server (LSP)
+brew "delve"             # Go debugger
+brew "staticcheck"       # Go static analysis
+brew "golang-migrate"    # database migrations
+go "golang.org/x/tools/cmd/goimports"   # Go import formatter
+go "go.uber.org/mock/mockgen"            # Go mock generator
 
 # Dev tools
-brew "gh"           # GitHub CLI
-brew "awscli"       # AWS CLI
-cask "1password"          # password manager app
-brew "1password-cli"      # op CLI — biometric unlock after connecting in app settings
-brew "pgenv"              # manage multiple postgres versions (pgenv use 14.12)
-brew "git-delta"    # beautiful git diffs
-brew "btop"         # system monitor
+brew "gh"                # GitHub CLI
+brew "awscli"            # AWS CLI
+brew "glab"              # GitLab CLI
+brew "gitlab-runner"     # run GitLab CI pipelines locally
+cask "1password"         # password manager app
+brew "1password-cli"     # op CLI — biometric unlock after connecting in app settings
+brew "pgenv"             # manage multiple postgres versions (pgenv use 14.12)
+brew "pgvector"          # Postgres vector extension (AI/embeddings)
+brew "git-delta"         # beautiful git diffs
+brew "btop"              # system monitor
 brew "jesseduffield/lazygit/lazygit"
-brew "fastfetch"        # system info on shell start
-brew "kanata"           # keyboard remapper — app switcher layer + AirPods chord
-brew "switchaudio-osx"  # CLI audio source switcher, used by kanata AirPods chord
+brew "fastfetch"         # system info on shell start
+brew "kanata"            # keyboard remapper — app switcher layer + AirPods chord
+brew "switchaudio-osx"   # CLI audio source switcher, used by kanata AirPods chord
 
-# Kubernetes
+# Kubernetes & DevOps
 brew "helm"
 brew "kubernetes-cli"
+brew "argo"              # Argo Workflows CLI
+brew "argocd"            # Argo CD CLI — GitOps continuous delivery
+
+# Cloud
+cask "google-cloud-sdk"  # gcloud CLI
+cask "tailscale"         # VPN
 
 # Apps
 cask "obsidian"
@@ -40,3 +64,6 @@ cask "figma"
 
 # VS Code extensions
 vscode "dbaeumer.vscode-eslint"
+vscode "github.copilot-chat"
+vscode "pomdtr.excalidraw-editor"
+vscode "unional.vscode-sort-package-json"

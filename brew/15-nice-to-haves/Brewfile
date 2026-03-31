@@ -36,3 +36,9 @@ cask "eligere"
 
 # Window manager — keyboard-driven window tiling, no SIP required
 brew "nikitabobko/tap/aerospace"
+
+# Menubar mini calendar — click to see month view
+cask "itsycal"
+
+# Mouse customization — remap buttons, scroll speed, per-app behavior
+cask "linearmouse"
