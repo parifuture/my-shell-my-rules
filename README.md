@@ -33,7 +33,7 @@ Huge tip of the hat. The quality of that repo is exceptional — well-structured
 
 ```sh
 # 1. Clone the repo
-git clone <repo-url> ~/code/my-shell-my-rules
+git clone git@github.com:parifuture/my-shell-my-rules.git ~/code/my-shell-my-rules
 
 # 2. Create the initial zshrc symlink (the symlinks module handles the rest after this)
 ln -snf ~/code/my-shell-my-rules/zshrc/zshrc-file.sh ~/.zshrc
