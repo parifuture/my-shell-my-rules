@@ -17,16 +17,12 @@ if command -v brew &>/dev/null; then
 fi
 
 #############################################################################
-#                              SSH keys
+#                              SSH keys via 1Password
 #############################################################################
 
-if [ -f ~/.ssh/key-github-pers ]; then
-  ssh-add ~/.ssh/key-github-pers >/dev/null 2>&1
-fi
-
-if [ -f ~/.ssh/id_rsa ]; then
-  ssh-add ~/.ssh/id_rsa >/dev/null 2>&1
-fi
+# 1Password SSH agent — handles all SSH keys with Touch ID, no manual ssh-add needed
+# Requires: 1Password app → Settings → Developer → "Use the SSH agent"
+export SSH_AUTH_SOCK="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
 
 #############################################################################
 #                              PATH additions
