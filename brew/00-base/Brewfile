@@ -31,8 +31,9 @@ brew "eza"      # ls replacement
 brew "ripgrep"  # fast grep (also used by fzf)
 brew "fd"       # fast find
 
-# JSON
-brew "jq"
+# JSON / YAML
+brew "jq"    # JSON processor
+brew "yq"    # YAML processor (same syntax as jq)
 
 # Shell history
 brew "atuin"

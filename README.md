@@ -112,7 +112,5 @@ source ~/.zshrc
 
 ### Configs still needing setup
 
-- [ ] **Kitty** — `kitty/kitty.conf` is a placeholder. Configure fonts, colors, and keybindings.
-- [ ] **Starship** — `starship/starship.toml` is a placeholder. Configure the prompt.
 - [ ] **fastfetch image** — Replace `fastfetch/images/link-green.png` with your own image if desired.
   Update the `source` path in `fastfetch/config.jsonc` to match.
