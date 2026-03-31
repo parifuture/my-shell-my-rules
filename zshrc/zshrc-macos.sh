@@ -113,6 +113,13 @@ if [ -f "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]; 
   source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 fi
 
+# pgenv — postgres version manager
+# Usage: pgenv install 16.4 / pgenv use 16.4 / pgenv versions
+if command -v pgenv &>/dev/null; then
+  export PGENV_ROOT="$HOME/.pgenv"
+  export PATH="$PGENV_ROOT/bin:$PGENV_ROOT/pgsql/bin:$PATH"
+fi
+
 # uv — python version + package manager
 # reads .python-version automatically, downloads version if missing
 # use `uv add <pkg>` instead of pip install

@@ -75,6 +75,8 @@ source ~/.zshrc
   atuin login      # if you already have an account
   ```
 
+- [ ] **1Password CLI** — after installing, open 1Password app → Settings → Developer → enable "Connect with 1Password CLI". After that `op` uses Touch ID, no master password needed in terminal.
+
 - [ ] **AeroSpace — Kitty floating window** — On first launch, manually resize and position
   the Kitty window to your preferred size. AeroSpace will remember the position after that.
 

@@ -16,6 +16,9 @@ brew "go"
 # Dev tools
 brew "gh"           # GitHub CLI
 brew "awscli"       # AWS CLI
+cask "1password"          # password manager app
+brew "1password-cli"      # op CLI — biometric unlock after connecting in app settings
+brew "pgenv"              # manage multiple postgres versions (pgenv use 14.12)
 brew "git-delta"    # beautiful git diffs
 brew "btop"         # system monitor
 brew "jesseduffield/lazygit/lazygit"
