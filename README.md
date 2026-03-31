@@ -75,6 +75,15 @@ source ~/.zshrc
   atuin login      # if you already have an account
   ```
 
+- [ ] **Touch ID for sudo** — run this once to enable fingerprint for all `sudo` commands.
+  Uses `sudo_local` which survives macOS updates (unlike editing `/etc/pam.d/sudo` directly):
+  ```sh
+  sudo tee /etc/pam.d/sudo_local << 'EOF'
+  auth       sufficient     pam_tid.so
+  EOF
+  ```
+  After this, every `sudo` command will prompt for Touch ID instead of your password.
+
 - [ ] **1Password** — two things to enable in 1Password app → Settings → Developer:
   1. **"Connect with 1Password CLI"** — lets `op` use Touch ID instead of master password
   2. **"Use the SSH agent"** — all SSH keys stored in 1Password vault work automatically with Touch ID, no `ssh-add` needed
