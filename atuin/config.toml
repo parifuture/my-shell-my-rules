@@ -1,0 +1,18 @@
+# ~/code/my-shell-my-rules/atuin/config.toml
+# Atuin shell history configuration
+# Docs: https://docs.atuin.sh/configuration/config/
+
+# Search mode: "prefix", "fulltext", "fuzzy", "skim"
+search_mode = "fuzzy"
+
+# Filter mode: "global", "host", "session", "directory"
+filter_mode = "global"
+
+# Show preview of selected command
+show_preview = true
+
+# Exit immediately on unique match
+exit_mode = "return-original"
+
+# Sync history across machines (requires atuin account or self-hosted server)
+# sync_address = "https://api.atuin.sh"

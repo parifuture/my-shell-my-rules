@@ -1,0 +1,38 @@
+# ~/code/my-shell-my-rules/brew/10-essential/Brewfile
+# Daily driver tools
+# Usage: brew bundle --file=~/code/my-shell-my-rules/brew/10-essential/Brewfile
+
+tap "homebrew/bundle"
+tap "homebrew/services"
+tap "jesseduffield/lazygit"
+
+# Fonts
+cask "font-meslo-lg-nerd-font"
+cask "sf-symbols"
+
+# Languages
+brew "go"
+
+# Dev tools
+brew "gh"           # GitHub CLI
+brew "git-delta"    # beautiful git diffs
+brew "btop"         # system monitor
+brew "jesseduffield/lazygit/lazygit"
+brew "fastfetch"        # system info on shell start
+brew "kanata"           # keyboard remapper — app switcher layer + AirPods chord
+brew "switchaudio-osx"  # CLI audio source switcher, used by kanata AirPods chord
+
+# Kubernetes
+brew "helm"
+brew "kubernetes-cli"
+
+# Apps
+cask "obsidian"
+cask "google-chrome"
+cask "zen-browser"
+cask "slack"
+cask "visual-studio-code"
+cask "figma"
+
+# VS Code extensions
+vscode "dbaeumer.vscode-eslint"

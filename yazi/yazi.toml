@@ -1,0 +1,5 @@
+# ~/code/my-shell-my-rules/yazi/yazi.toml
+# Docs: https://yazi-rs.github.io/docs/configuration/yazi
+
+[mgr]
+show_hidden = true

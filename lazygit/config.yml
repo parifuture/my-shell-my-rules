@@ -1,0 +1,24 @@
+# ~/code/my-shell-my-rules/lazygit/config.yml
+# Docs: https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
+
+gui:
+  theme:
+    selectedLineBgColor:
+      - "#013e4a"
+
+keybinding:
+  universal:
+    quit: <esc>
+
+os:
+  # Open files in VS Code when pressing "e" in lazygit
+  # --goto opens at the specific line
+  edit: 'code {{filename}}'
+  editAtLine: 'code --goto {{filename}}:{{line}}'
+  editInTerminal: false
+
+git:
+  pagers:
+    - colorArg: always
+      # Requires git-delta: brew install git-delta
+      pager: delta --dark --paging=never --syntax-theme base16-256 -s --wrap-max-lines=10

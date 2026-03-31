@@ -1,0 +1,116 @@
+# ~/code/my-shell-my-rules/starship/starship.toml
+# Starship prompt configuration
+# Docs: https://starship.rs/config/
+
+# Two-line prompt:
+# Line 1: user · time · git · language versions · k8s context
+# Line 2: directory
+# Line 3: ❯❯❯❯
+format = """
+$username\
+$hostname\
+$time\
+$all\
+$directory
+$character
+"""
+
+###########################################################################
+#                              Prompt character
+###########################################################################
+
+[character]
+success_symbol = '[❯❯❯❯](#37f499 bold)'
+error_symbol   = '[❯❯❯❯](#f16c75 bold)'
+
+###########################################################################
+#                              User / Host
+###########################################################################
+
+[username]
+style_user   = '#987afb bold'
+style_root   = 'white bold'
+format       = '[$user]($style) '
+show_always  = true
+
+[hostname]
+ssh_only = true
+format   = '[@$hostname](#37f499 bold) '
+
+###########################################################################
+#                              Time
+###########################################################################
+
+[time]
+disabled    = false
+style       = '#987afb bold'
+format      = '[\[$time\]]($style) '
+time_format = '%H:%M'
+
+###########################################################################
+#                              Directory
+###########################################################################
+
+[directory]
+style             = '#04d1f9 bold'
+truncation_length = 0
+truncate_to_repo  = false
+
+###########################################################################
+#                              Git
+###########################################################################
+
+[git_branch]
+style  = '#f7c67f bold'
+format = '[$symbol$branch]($style) '
+
+[git_status]
+style   = '#f16c75 bold'
+format  = '([$all_status$ahead_behind]($style) )'
+
+###########################################################################
+#                              Languages
+###########################################################################
+
+[nodejs]
+style   = '#37f499 bold'
+format  = '[$symbol($version)]($style) '
+symbol  = ' '
+
+[golang]
+style   = '#04d1f9 bold'
+format  = '[$symbol($version)]($style) '
+symbol  = ' '
+
+[python]
+style         = '#f1fc79 bold'
+format        = '[$symbol($version)(\($virtualenv\))]($style) '
+symbol        = ' '
+detect_files  = ['requirements.txt', 'pyproject.toml', '.python-version', 'setup.py']
+
+[rust]
+style   = '#f7c67f bold'
+format  = '[$symbol($version)]($style) '
+symbol  = '󱘗 '
+
+###########################################################################
+#                              Kubernetes
+###########################################################################
+
+[kubernetes]
+disabled = false
+style    = '#9ad900 bold'
+format   = '[$cluster](#9ad900 bold) [$namespace](#37f499 bold) '
+
+###########################################################################
+#                              Disabled
+###########################################################################
+
+[battery]
+disabled = true
+
+[gcloud]
+disabled = true
+
+[ruby]
+disabled = true

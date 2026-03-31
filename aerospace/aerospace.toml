@@ -1,0 +1,153 @@
+# ~/code/my-shell-my-rules/aerospace/aerospace.toml
+# AeroSpace window manager configuration
+# Docs: https://nikitabobko.github.io/AeroSpace/guide
+
+after-login-command = []
+after-startup-command = []
+
+# Notify sketchybar when workspace changes
+exec-on-workspace-change = [
+  '/bin/bash', '-c',
+  'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+]
+
+start-at-login = true
+
+# Normalizations
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+accordion-padding = 0
+
+# Possible values: tiles | accordion
+default-root-container-layout = 'accordion'
+default-root-container-orientation = 'auto'
+
+key-mapping.preset = 'qwerty'
+
+# Move mouse to window on focus change
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+on-focus-changed = ['move-mouse window-lazy-center']
+
+# Gaps between windows
+gaps.inner.horizontal = 10
+gaps.inner.vertical = 10
+gaps.outer.left = 0
+gaps.outer.right = 0
+gaps.outer.bottom = 0
+gaps.outer.top = 10
+
+############################################################################
+#                         Key bindings
+############################################################################
+
+[mode.main.binding]
+
+# Layout toggles
+alt-slash = 'layout tiles horizontal vertical'
+alt-comma = 'layout accordion horizontal vertical'
+
+# Focus — move focus between windows (vim-style)
+cmd-shift-h = 'focus left'
+cmd-shift-j = 'focus down'
+cmd-shift-k = 'focus up'
+cmd-shift-l = 'focus right'
+
+# Fullscreen
+cmd-shift-f = 'fullscreen'
+
+# Toggle back and forth between last focused window
+alt-o = 'focus-back-and-forth'
+
+# Move windows
+ctrl-shift-h = 'move left'
+ctrl-shift-j = 'move down'
+ctrl-shift-k = 'move up'
+ctrl-shift-l = 'move right'
+
+# Resize
+alt-shift-minus = 'resize smart -50'
+alt-shift-equal = 'resize smart +50'
+
+# Workspaces — switch
+alt-shift-cmd-ctrl-v = 'workspace 1'
+alt-shift-cmd-ctrl-b = 'workspace 2'
+alt-shift-cmd-ctrl-n = 'workspace 3'
+alt-shift-cmd-ctrl-m = 'workspace 4'
+
+# Move window to next monitor
+alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+
+# Enter service mode
+alt-shift-semicolon = 'mode service'
+
+############################################################################
+#                         Service mode
+############################################################################
+
+[mode.service.binding]
+esc = ['reload-config', 'mode main']
+r = ['flatten-workspace-tree', 'mode main']       # reset layout
+f = ['layout floating tiling', 'mode main']       # toggle floating
+backspace = ['close-all-windows-but-current', 'mode main']
+
+alt-shift-h = ['join-with left', 'mode main']
+alt-shift-j = ['join-with down', 'mode main']
+alt-shift-k = ['join-with up', 'mode main']
+alt-shift-l = ['join-with right', 'mode main']
+
+############################################################################
+#                         Monitor → Workspace assignments
+#
+# Setup A — two external monitors:
+#   Monitor 1 (main):      workspaces 1, 2  → dev work + terminal
+#   Monitor 2 (secondary): workspaces 3, 4  → browsers + comms
+#
+# Setup B — laptop only:
+#   All workspaces fall back to the built-in screen automatically
+############################################################################
+
+# Monitor 1 (main):      workspace 1 → Kitty (floating) + Slack (tiled)
+#                        workspace 2 → overflow / future use
+# Monitor 2 (secondary): workspace 3 → VS Code + Chrome (tiled 50/50)
+#                        workspace 4 → Figma (100%)
+# Laptop only: everything falls back to built-in
+
+[workspace-to-monitor-force-assignment]
+'1' = ['main', 'built-in']
+'2' = ['main', 'built-in']
+'3' = ['secondary', 'main', 'built-in']
+'4' = ['secondary', 'main', 'built-in']
+
+############################################################################
+#                         App workspace assignments
+############################################################################
+
+# Monitor 1 — workspace 1: Slack (tiled, fills space) + Kitty (floating on top)
+# NOTE: Kitty's size and position as a floating window must be set once manually.
+#       AeroSpace will remember it after that.
+[[on-window-detected]]
+if.app-id = 'net.kovidgoyal.kitty'
+run = ['layout floating', 'move-node-to-workspace 1']
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Slack'
+run = 'move-node-to-workspace 1'
+
+# Monitor 2 — workspace 3: VS Code + Chrome tiled 50/50 automatically
+[[on-window-detected]]
+if.app-name-regex-substring = 'Visual Studio Code'
+run = 'move-node-to-workspace 3'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Zen'
+run = 'move-node-to-workspace 3'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Google Chrome'
+run = 'move-node-to-workspace 3'
+
+# Monitor 2 — workspace 4: Figma alone, fills 100%
+[[on-window-detected]]
+if.app-name-regex-substring = 'Figma'
+run = 'move-node-to-workspace 4'

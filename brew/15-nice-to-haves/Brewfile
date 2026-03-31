@@ -1,0 +1,38 @@
+# ~/code/my-shell-my-rules/brew/15-nice-to-haves/Brewfile
+# Nice to have apps
+# Usage: brew bundle --file=~/code/my-shell-my-rules/brew/15-nice-to-haves/Brewfile
+
+tap "homebrew/bundle"
+tap "homebrew/services"
+tap "nikitabobko/tap"
+
+# Spotlight replacement — app launcher, clipboard history, snippets
+cask "raycast"
+
+# External monitor resolution and brightness control
+# Cask tracks the latest GitHub release — no special flags needed
+cask "betterdisplay"
+
+# Microsoft Remote Desktop
+cask "windows-app"
+
+# API testing
+cask "postman"
+
+# Discord
+cask "discord"
+
+# App subscription service
+cask "setapp"
+
+# Input customization — trackpad gestures, macros, keyboard remapping
+cask "bettertouchtool"
+
+# Screenshot tool — annotate, OCR, scrolling capture, record
+cask "cleanshot"
+
+# Browser picker — routes links to the right browser based on domain rules
+cask "eligere"
+
+# Window manager — keyboard-driven window tiling, no SIP required
+brew "nikitabobko/tap/aerospace"

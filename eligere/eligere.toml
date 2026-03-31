@@ -1,0 +1,21 @@
+# ~/code/my-shell-my-rules/eligere/eligere.toml
+# Eligere browser picker configuration
+# Docs: https://eligere.dev/docs/config/configuration/
+
+useOnlyRunningBrowsers = false
+stripTrackingAttributes = true
+expandShortenURLs = false
+pinningSeconds = 30
+logLevel = "warning"
+
+[[browsers]]
+default = true
+name = "Zen"
+shortcut = "z"
+
+[[browsers]]
+name = "Google Chrome"
+shortcut = "c"
+domains = [
+  "ea.com",
+]

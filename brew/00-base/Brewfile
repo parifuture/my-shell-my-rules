@@ -1,0 +1,50 @@
+# ~/code/my-shell-my-rules/brew/00-base/Brewfile
+# Core terminal tools — install these first on any new machine
+# Usage: brew bundle --file=~/code/my-shell-my-rules/brew/00-base/Brewfile
+
+tap "homebrew/bundle"
+tap "homebrew/services"
+
+# Shell
+brew "bash"               # macOS ships with bash 3.2 (2007) due to GPL licensing
+brew "zsh-autosuggestions"
+brew "starship"
+
+# Node — managed via fnm (fast node manager), not brew directly
+brew "fnm"
+
+# Python — uv handles version management + package management
+# reads .python-version automatically, downloads version if not installed
+brew "uv"
+
+# Git
+brew "git"
+brew "wget"
+
+# Fuzzy finder
+brew "fzf"
+
+# Modern CLI replacements
+brew "zoxide"   # smart cd
+brew "bat"      # cat with syntax highlighting
+brew "eza"      # ls replacement
+brew "ripgrep"  # fast grep (also used by fzf)
+brew "fd"       # fast find
+
+# JSON
+brew "jq"
+
+# Shell history
+brew "atuin"
+
+# Terminal file manager with image previews
+brew "yazi"
+
+# CLI tools
+brew "glab"  # GitLab CLI
+
+# Terminal
+cask "kitty"
+
+# Battery health
+cask "coconutbattery"

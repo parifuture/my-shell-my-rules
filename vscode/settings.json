@@ -1,0 +1,13 @@
+{
+  "editor.fontFamily": "MesloLGM Nerd Font, Menlo, Monaco, monospace",
+  "editor.fontSize": 14,
+  "editor.fontLigatures": true,
+  "editor.formatOnSave": true,
+  "editor.minimap.enabled": false,
+  "editor.bracketPairColorization.enabled": true,
+  "editor.accessibilitySupport": "off",
+  "editor.defaultFormatter": null,
+
+  "git.autofetch": true,
+  "window.zoomLevel": 1
+}

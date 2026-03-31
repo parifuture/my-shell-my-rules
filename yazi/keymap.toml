@@ -1,0 +1,9 @@
+# ~/code/my-shell-my-rules/yazi/keymap.toml
+
+[mgr]
+prepend_keymap = [
+  { on = "<Esc>",    run = "quit",   desc = "Exit yazi" },
+  { on = "o",        run = "create", desc = "Create file (end with / for directory)" },
+  { on = ["d", "d"], run = "remove", desc = "Trash selected files" },
+  { on = ["y", "y"], run = "yank",   desc = "Yank (copy) selected files" },
+]

@@ -1,0 +1,59 @@
+# Main background, empty for terminal background transparency
+theme[main_bg]=""
+theme[main_fg]="#ffffff"
+theme[title]="#ffffff"
+theme[hi_fg]="#37f499"
+theme[selected_bg]="#987afb"
+theme[selected_fg]="#ffffff"
+theme[inactive_fg]="#b7bfce"
+theme[graph_text]="#ffffff"
+theme[meter_bg]="#141b22"
+theme[proc_misc]="#fca6ff"
+
+# Box outline colors
+theme[cpu_box]="#987afb"
+theme[mem_box]="#37f499"
+theme[net_box]="#04d1f9"
+theme[proc_box]="#9ad900"
+theme[div_line]="#141b22"
+
+# Temperature graph
+theme[temp_start]="#fca6ff"
+theme[temp_mid]="#e9b3fd"
+theme[temp_end]="#05ff23"
+
+# CPU graph
+theme[cpu_start]="#fca6ff"
+theme[cpu_mid]="#9ad900"
+theme[cpu_end]="#37f499"
+
+# Mem/Disk meters
+theme[free_start]="#2d244b"
+theme[free_mid]="#e9b3fd"
+theme[free_end]="#05ff23"
+
+theme[cached_start]="#04d1f9"
+theme[cached_mid]="#9ad900"
+theme[cached_end]="#e58f2a"
+
+theme[available_start]="#4b314c"
+theme[available_mid]="#fca6ff"
+theme[available_end]="#987afb"
+
+theme[used_start]="#10492d"
+theme[used_mid]="#9ad900"
+theme[used_end]="#37f499"
+
+# Network graphs
+theme[download_start]="#fca6ff"
+theme[download_mid]="#37f499"
+theme[download_end]="#9ad900"
+
+theme[upload_start]="#e58f2a"
+theme[upload_mid]="#e9b3fd"
+theme[upload_end]="#05ff23"
+
+# Process gradients
+theme[process_start]="#04d1f9"
+theme[process_mid]="#37f499"
+theme[process_end]="#05ff23"
