@@ -56,6 +56,10 @@ brew "argocd"            # Argo CD CLI — GitOps continuous delivery
 cask "google-cloud-sdk"  # gcloud CLI
 cask "tailscale"         # VPN
 
+# Finder customization
+brew "fileicon"            # set custom folder/file icons from CLI
+brew "mysides"             # manage Finder sidebar items from CLI
+
 # Apps
 cask "obsidian"
 cask "google-chrome"
