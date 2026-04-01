@@ -26,6 +26,8 @@ Huge tip of the hat. The quality of that repo is exceptional — well-structured
 | Colorscheme system |
 | Kubernetes aliases |
 | Symlinks module running on every shell start |
+| AWS credentials via 1Password (awsp profile switcher) |
+| Git SSH + commit signing via 1Password |
 
 ---
 
@@ -87,6 +89,50 @@ source ~/.zshrc
 - [ ] **1Password** — two things to enable in 1Password app → Settings → Developer:
   1. **"Connect with 1Password CLI"** — lets `op` use Touch ID instead of master password
   2. **"Use the SSH agent"** — all SSH keys stored in 1Password vault work automatically with Touch ID, no `ssh-add` needed
+
+- [ ] **Git SSH** — ensure your SSH key in 1Password is added to both GitHub and GitLab:
+  - GitHub: `https://github.com/settings/keys` — add as **Authentication key** and **Signing key**
+  - GitLab: add as **Authentication & Signing** key
+  - Add host keys to known_hosts:
+    ```sh
+    ssh-keyscan -t ed25519,rsa github.com >> ~/.ssh/known_hosts
+    ssh-keyscan -t ed25519,rsa gitlab.example.com >> ~/.ssh/known_hosts  # your GitLab host
+    ```
+  - Git commit signing is pre-configured in `.gitconfig` — just set your signing key:
+    ```sh
+    git config --global user.signingkey "$(ssh-add -L | head -1)"
+    ```
+
+- [ ] **AWS credentials via 1Password** — the `awsp` shell function loads AWS credentials from 1Password on demand:
+  1. Sync your AWS Secrets Manager secrets into 1Password:
+     ```sh
+     export AWS_PROFILE=your-sso-profile AWS_REGION=us-west-1 OP_VAULT="Your Vault"
+     ./scripts/aws-secrets-to-1password.sh --all
+     ```
+  2. Create the profiles config at `~/.aws/1p-profiles.conf`:
+     ```ini
+     # Default vault for all profiles
+     vault=Your Vault Name
+
+     [default]
+     op_item=your-1password-item
+     key_field=aws_access_key_id
+     secret_field=aws_secret_access_key
+     region=us-west-1
+
+     [bedrock]
+     op_item=your-1password-item
+     key_field=bedrock_aws_access_key_id
+     secret_field=bedrock_aws_secret_access_key
+     region=us-west-1
+     ```
+  3. Usage:
+     ```sh
+     awsp default    # load general AWS credentials (Touch ID prompt)
+     awsp bedrock    # load Bedrock/LLM credentials
+     awsp            # show current profile
+     awsp --list     # list available profiles
+     ```
 
 - [ ] **AeroSpace — Kitty floating window** — On first launch, manually resize and position
   the Kitty window to your preferred size. AeroSpace will remember the position after that.
@@ -153,6 +199,10 @@ source ~/.zshrc
   ```
 
   The AirPods chord is `a+i+r` pressed simultaneously. Update `'AirPods Pro'` in `kanata/kanata.kbd` to match your exact AirPods name if different.
+
+  **F1–F12 are mapped to macOS media keys** (brightness, playback, volume) so they work
+  as expected without holding `fn`. This is handled in kanata because it intercepts keys
+  before macOS can apply media key behavior.
 
   > **Upgrades**: `brew upgrade` won't update this. Check [github.com/jtroo/kanata/releases](https://github.com/jtroo/kanata/releases) manually and re-run the steps above with the new version.
 
@@ -231,6 +281,14 @@ Enter with `alt-shift-;` — every action auto-returns to main mode.
 4. **Quick window swap?** `alt-o` toggles between your last two focused windows
 
 Config: `aerospace/aerospace.toml`
+
+---
+
+## Scripts
+
+| Script | Purpose |
+|--------|---------|
+| `scripts/aws-secrets-to-1password.sh` | Syncs AWS Secrets Manager secrets into 1Password. Interactive selection or `--all`. Compares and updates existing items. Config via `scripts/.env` (gitignored, see `.env.example`). |
 
 ---
 

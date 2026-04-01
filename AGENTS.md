@@ -12,7 +12,7 @@ A software developer working primarily with:
 - **Backend:** Node.js, TypeScript, Golang
 - **Learning:** Rust (beginner)
 - **Infrastructure:** Kubernetes (uses kubectl, helm, kubectx, kubens)
-- **Cloud:** Google Cloud Platform (gcloud)
+- **Cloud:** Google Cloud Platform (gcloud), AWS (via 1Password-backed profiles)
 - **OS:** macOS (Apple Silicon), with two external monitors when at desk
 
 ---
@@ -75,9 +75,10 @@ brew/15-nice-to-haves/Brewfile ← optional but wanted apps
 | **bat** | cat replacement | Syntax highlighting, aliased as `cat` |
 | **lazygit** | Git TUI | Visual git interface, aliased as `lg` |
 | **yazi** | Terminal file manager | Navigate dirs visually, image previews via Kitty Graphics Protocol |
-| **kanata** | Keyboard remapper | App switcher layer (hold Enter), AirPods connect chord (a+i+r) |
+| **kanata** | Keyboard remapper | App switcher layer (hold Enter), AirPods connect chord (a+i+r), F1–F12 mapped to media keys |
 | **btop** | System monitor | Beautiful terminal system monitor with custom theme |
 | **fastfetch** | System info on shell start | Shows hardware/software info with image on every new terminal |
+| **1Password CLI** | Secrets management | SSH agent for git, AWS credential injection via `awsp`, commit signing via Touch ID |
 
 ---
 
@@ -97,10 +98,10 @@ brew/15-nice-to-haves/Brewfile ← optional but wanted apps
 ## Workspace layout (AeroSpace)
 
 ```
-Monitor 1 (main):      workspace 1 → Kitty (floating) + Slack (tiled)
-                       workspace 2 → overflow
-Monitor 2 (secondary): workspace 3 → VS Code + Chrome (tiled 50/50)
-                       workspace 4 → Figma (100%)
+Monitor 1 (main):      workspace 1 (comms)    → Outlook, Slack, Safari (EA Window)
+                       workspace 2 (general)  → catch all
+Monitor 2 (secondary): workspace 3 (dev)      → Kitty (floating), VS Code, Figma
+                       workspace 4 (private)  → Safari (personal), Obsidian
 Laptop only:           all workspaces fall back to built-in screen
 ```
 
@@ -110,19 +111,25 @@ Laptop only:           all workspaces fall back to built-in screen
 
 ```
 Left:  [ Apple menu ] [ 1 ] [ 2 ] [ 3 ] [ 4 ] [ App icon ]
-Right: [ Monday 3 January 14:22 ] [ brew ] [ DND ] [ WiFi ] [ Battery ] [ Volume ] [ CPU ]
+Right: [ Monday 3 January 14:22 ] [ brew ] [ DND ] [ WiFi ] [ Battery ] [ Volume ]
 ```
 
 - AeroSpace workspace numbers highlight green when active
 - WiFi click toggles showing/hiding the IP address
 - Volume slider appears briefly when volume changes, right-click to pick audio device
-- Brew count updates automatically after any brew command (wired in zshrc)
+- Brew icon shows outdated package count (color-coded: green=0, white=1-9, yellow=10-29, orange=30+)
+- Brew click runs `brew update && brew upgrade` in background, then refreshes count
 
 ---
 
-## Kanata app switcher
+## Kanata keyboard remapping
 
-Hold `Enter` to activate apps layer, then press:
+**Caps Lock → Hyper key** (ctrl+shift+opt+cmd) — used for AeroSpace workspace switching.
+
+**F1–F12 → macOS media keys** — brightness, playback, volume mapped directly so they
+work without holding `fn`. Kanata intercepts before macOS, so this is necessary.
+
+**Hold `Enter`** to activate apps layer, then press:
 
 | Key | App |
 |-----|-----|
@@ -143,6 +150,43 @@ Update `'AirPods Pro'` in `kanata/kanata.kbd` if the device name differs.
 
 ---
 
+## AWS credentials via 1Password
+
+The `awsp` function in `zshrc/zshrc-macos.sh` loads AWS credentials from 1Password on demand.
+Profiles are defined in `~/.aws/1p-profiles.conf` (not committed — contains vault name and item references).
+
+```sh
+awsp default    # general AWS credentials
+awsp bedrock    # Bedrock/LLM credentials
+awsp            # show current profile
+awsp --list     # list available profiles
+```
+
+No credentials are ever stored on disk. Each `awsp` call triggers a Touch ID prompt.
+SSO profiles remain in `~/.aws/config` for admin/console work but are separate from `awsp`.
+
+### Scripts
+
+- `scripts/aws-secrets-to-1password.sh` — syncs AWS Secrets Manager → 1Password.
+  Config via `scripts/.env` (gitignored). See `scripts/.env.example` for format.
+  Supports interactive selection, `--all`, and diff-based updates (won't duplicate).
+
+---
+
+## Git SSH and commit signing
+
+All git operations use SSH keys from 1Password's SSH agent (configured in `zshrc/zshrc-macos.sh`).
+Commits and tags are signed with the same SSH key — configured globally in `~/.gitconfig`:
+
+- `gpg.format = ssh`
+- `commit.gpgsign = true`
+- `tag.gpgsign = true`
+- Allowed signers file at `~/.ssh/allowed_signers`
+
+Works on both GitHub and GitLab. The signing key must be registered on both platforms.
+
+---
+
 ## Configs that are still placeholders
 
 - `kitty/kitty.conf` — placeholder, not yet configured
@@ -153,8 +197,10 @@ Update `'AirPods Pro'` in `kanata/kanata.kbd` if the device name differs.
 ## Configs that need manual setup (cannot be symlinked)
 
 - **BetterTouchTool** — import `betterTouchTool/preset.bttpreset` via File → Import Preset
-- **Kanata** — needs accessibility permissions + `sudo brew services start kanata`
+- **Kanata** — needs accessibility permissions + LaunchDaemon (`sudo launchctl load /Library/LaunchDaemons/com.kanata.daemon.plist`)
 - **Sketchybar** — needs `brew services start sketchybar`
+- **Git signing** — add SSH public key as signing key on GitHub and GitLab, set `user.signingkey` in `~/.gitconfig`
+- **AWS (awsp)** — create `~/.aws/1p-profiles.conf` with vault and profile definitions
 - **bash** — needs `sudo bash -c 'echo /opt/homebrew/bin/bash >> /etc/shells'` once
 - **fzf** — needs `echo -e "y\ny\nn" | /opt/homebrew/opt/fzf/install` after brew install
 - **atuin** — optionally `atuin login` or `atuin register` for cross-machine sync
