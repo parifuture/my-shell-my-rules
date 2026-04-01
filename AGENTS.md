@@ -62,7 +62,7 @@ brew/15-nice-to-haves/Brewfile ← optional but wanted apps
 
 | Tool | Purpose | Why chosen |
 |------|---------|-----------|
-| **Kitty** | Terminal emulator | GPU-accelerated, invented the Kitty Graphics Protocol (needed for image previews in Yazi/Neovim) |
+| **Kitty** | Terminal emulator | GPU-accelerated, Kitty Graphics Protocol for image previews, custom Cmd keybindings for macOS-style line editing |
 | **Starship** | Shell prompt | Fast, highly configurable, language-version aware |
 | **AeroSpace** | Window manager | No SIP disabling required, built-in shortcuts, TOML config, works great on macOS Sequoia |
 | **Sketchybar** | Custom macOS menu bar | Replaces default menu bar, shows workspaces, battery, wifi, CPU, brew, etc. |
@@ -167,6 +167,8 @@ SSO profiles remain in `~/.aws/config` for admin/console work but are separate f
 
 ### Scripts
 
+- `scripts/macos-finder.sh` — configures Finder defaults, sidebar, and custom `~/code` folder icon.
+  Requires `fileicon` and `mysides`. Run once after fresh install.
 - `scripts/aws-secrets-to-1password.sh` — syncs AWS Secrets Manager → 1Password.
   Config via `scripts/.env` (gitignored). See `scripts/.env.example` for format.
   Supports interactive selection, `--all`, and diff-based updates (won't duplicate).
@@ -187,9 +189,39 @@ Works on both GitHub and GitLab. The signing key must be registered on both plat
 
 ---
 
+## Kitty keybindings
+
+Kitty has custom keybindings for macOS-style line editing (terminal doesn't get these from Cocoa):
+
+| Keys | Action | Implementation |
+|------|--------|---------------|
+| `Cmd+Left` | Jump to beginning of line | Sends Home |
+| `Cmd+Right` | Jump to end of line | Sends End |
+| `Cmd+Backspace` | Delete entire line | Sends `Ctrl+U` (`\x15`) |
+
+These are in `kitty/kitty.conf`. When adding new Cmd-based shortcuts, use `send_key` or `send_text` to translate them into terminal escape sequences.
+
+---
+
+## Finder configuration
+
+`scripts/macos-finder.sh` configures Finder via `defaults write` commands. It requires `fileicon` and `mysides` (in `brew/10-essential/Brewfile`).
+
+What it sets:
+- Default location: `~/code` (not Recents)
+- Column view, path bar, status bar, POSIX path in title bar
+- Shows hidden files, all extensions, folders first
+- Search scoped to current folder
+- Dev-focused sidebar: Home, Desktop, Downloads, code, Applications
+- Custom purple terminal folder icon on `~/code` (`assets/code-folder.icns`)
+- No `.DS_Store` on network/USB volumes
+
+Run once after a fresh install. Re-run if Finder preferences are reset.
+
+---
+
 ## Configs that are still placeholders
 
-- `kitty/kitty.conf` — placeholder, not yet configured
 - `fastfetch/images/link-green.png` — using original author's image, replace with your own
 
 ---

@@ -284,15 +284,35 @@ Config: `aerospace/aerospace.toml`
 
 ---
 
+## Finder setup
+
+Run the Finder configuration script to set dev-friendly defaults:
+
+```sh
+# Requires fileicon and mysides (included in 10-essential Brewfile)
+bash ~/code/personal/my-shell-my-rules/scripts/macos-finder.sh
+```
+
+This configures:
+- **Default location**: opens `~/code` instead of Recents
+- **View**: column view, path bar, status bar, full POSIX path in title bar
+- **Files**: shows hidden files, all extensions, folders sorted first
+- **Search**: scopes to current folder (not entire Mac)
+- **Sidebar**: Home, Desktop, Downloads, code, Applications (removes Recents, Documents, Movies, Music, Pictures)
+- **Folder icon**: custom purple terminal icon on `~/code` (stored in `assets/code-folder.icns`)
+- **Cleanup**: disables `.DS_Store` on network and USB volumes
+
 ## Scripts
 
 | Script | Purpose |
 |--------|---------|
+| `scripts/macos-finder.sh` | Configures Finder defaults, sidebar, and custom `~/code` folder icon. Requires `fileicon` and `mysides`. |
 | `scripts/aws-secrets-to-1password.sh` | Syncs AWS Secrets Manager secrets into 1Password. Interactive selection or `--all`. Compares and updates existing items. Config via `scripts/.env` (gitignored, see `.env.example`). |
 
 ---
 
 ### Configs still needing setup
 
+- [ ] **Finder** — Run `bash ~/code/personal/my-shell-my-rules/scripts/macos-finder.sh` after installing brew packages to configure Finder defaults, sidebar, and custom folder icon.
 - [ ] **fastfetch image** — Replace `fastfetch/images/link-green.png` with your own image if desired.
   Update the `source` path in `fastfetch/config.jsonc` to match.
