@@ -1,14 +1,29 @@
 {
-  "editor.fontFamily": "MesloLGM Nerd Font, Menlo, Monaco, monospace",
+  "editor.fontFamily": "MonoLisa Variable, MesloLGM Nerd Font, Menlo, Monaco, monospace",
   "editor.fontSize": 14,
-  "editor.fontLigatures": true,
+  "editor.fontLigatures": "'calt' on, 'liga' on, 'zero' on, 'ss01' on, 'ss02' on, 'ss03' on, 'ss04' on, 'ss05' on, 'ss06' on, 'ss07' on, 'ss08' on, 'ss09' on, 'ss10' on, 'ss11' on, 'ss12' on, 'ss13' on, 'ss14' on, 'ss15' on, 'ss16' on, 'ss17' on, 'ss18' on",
+  "editor.fontVariations": true,
   "editor.formatOnSave": true,
   "editor.minimap.enabled": false,
   "editor.bracketPairColorization.enabled": true,
   "editor.accessibilitySupport": "off",
   "editor.defaultFormatter": null,
 
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": "comment",
+        "settings": { "fontStyle": "italic" }
+      },
+      {
+        "scope": "comment.block.documentation",
+        "settings": { "fontStyle": "italic" }
+      }
+    ]
+  },
+
   "git.autofetch": true,
   "window.zoomLevel": 1,
-  "window.autoDetectColorScheme": true
+  "window.autoDetectColorScheme": true,
+  "security.workspace.trust.untrustedFiles": "open"
 }

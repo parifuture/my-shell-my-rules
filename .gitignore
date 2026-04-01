@@ -1,2 +1,8 @@
 *:Zone.Identifier
 .env
+
+# Font files — MonoLisa is a paid font, never commit font binaries
+*.ttf
+*.otf
+*.woff
+*.woff2
