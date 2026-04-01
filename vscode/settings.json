@@ -9,5 +9,6 @@
   "editor.defaultFormatter": null,
 
   "git.autofetch": true,
-  "window.zoomLevel": 1
+  "window.zoomLevel": 1,
+  "window.autoDetectColorScheme": true
 }

@@ -23,7 +23,7 @@ A personal dotfiles repository for a brand new Mac setup. It was built by review
 the dotfiles of **linkarzu** (https://github.com/linkarzu/dotfiles-latest) and
 selectively adopting what made sense for this developer's stack.
 
-The repo lives at: `~/code/my-shell-my-rules`
+The repo lives at: `~/code/personal/my-shell-my-rules`
 
 ---
 
@@ -31,7 +31,7 @@ The repo lives at: `~/code/my-shell-my-rules`
 
 ### Symlinks
 `zshrc/modules/symlinks.sh` is sourced on every shell start. It creates symlinks
-from `~/.config/<tool>` → `~/code/my-shell-my-rules/<tool>`. This means every config
+from `~/.config/<tool>` → `~/code/personal/my-shell-my-rules/<tool>`. This means every config
 in this repo is automatically linked to where the tool expects it. When you add a new
 config, add its symlink here.
 

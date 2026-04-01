@@ -1,5 +1,5 @@
 #!/bin/bash
-# ~/code/my-shell-my-rules/sketchybar/colors.sh
+# ~/code/personal/my-shell-my-rules/sketchybar/colors.sh
 # Eldritch colorscheme — update these if you switch themes
 
 export BLACK=0xff212337

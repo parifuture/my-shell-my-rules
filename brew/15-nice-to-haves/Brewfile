@@ -1,6 +1,6 @@
-# ~/code/my-shell-my-rules/brew/15-nice-to-haves/Brewfile
+# ~/code/personal/my-shell-my-rules/brew/15-nice-to-haves/Brewfile
 # Nice to have apps
-# Usage: brew bundle --file=~/code/my-shell-my-rules/brew/15-nice-to-haves/Brewfile
+# Usage: brew bundle --file=~/code/personal/my-shell-my-rules/brew/15-nice-to-haves/Brewfile
 
 tap "nikitabobko/tap"
 

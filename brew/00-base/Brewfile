@@ -1,6 +1,6 @@
-# ~/code/my-shell-my-rules/brew/00-base/Brewfile
+# ~/code/personal/my-shell-my-rules/brew/00-base/Brewfile
 # Core terminal tools — install these first on any new machine
-# Usage: brew bundle --file=~/code/my-shell-my-rules/brew/00-base/Brewfile
+# Usage: brew bundle --file=~/code/personal/my-shell-my-rules/brew/00-base/Brewfile
 
 # Shell
 brew "bash"               # macOS ships with bash 3.2 (2007) due to GPL licensing

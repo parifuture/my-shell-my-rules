@@ -1,4 +1,4 @@
-# ~/code/my-shell-my-rules/zshrc/modules/history.sh
+# ~/code/personal/my-shell-my-rules/zshrc/modules/history.sh
 
 HISTFILE=~/.zsh_history
 HISTSIZE=10000

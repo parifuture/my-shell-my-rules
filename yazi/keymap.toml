@@ -1,4 +1,4 @@
-# ~/code/my-shell-my-rules/yazi/keymap.toml
+# ~/code/personal/my-shell-my-rules/yazi/keymap.toml
 
 [mgr]
 prepend_keymap = [

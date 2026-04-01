@@ -1,5 +1,5 @@
 #!/bin/bash
-# ~/code/my-shell-my-rules/sketchybar/icons.sh
+# ~/code/personal/my-shell-my-rules/sketchybar/icons.sh
 
 # General
 APPLE=􀣺
@@ -29,3 +29,9 @@ HEADPHONES=􀑈
 WIFI_CONNECTED=􀙇
 WIFI_DISCONNECTED=􀙈
 ETHERNET_CONNECTED=󰈀
+
+# Workspaces
+WS_COMMS=􀈟         # chat bubble — communication
+WS_GENERAL=􀤆       # square grid — catch all
+WS_DEV=􀤂           # terminal prompt — development
+WS_PRIVATE=􀎡       # lock shield — private

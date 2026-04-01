@@ -1,4 +1,4 @@
-# ~/code/my-shell-my-rules/aerospace/aerospace.toml
+# ~/code/personal/my-shell-my-rules/aerospace/aerospace.toml
 # AeroSpace window manager configuration
 # Docs: https://nikitabobko.github.io/AeroSpace/guide
 
@@ -55,15 +55,16 @@ cmd-shift-l = 'focus right'
 
 # Fullscreen
 cmd-shift-f = 'fullscreen'
+ctrl-alt-enter = 'fullscreen'
 
 # Toggle back and forth between last focused window
 alt-o = 'focus-back-and-forth'
 
 # Move windows
-ctrl-shift-h = 'move left'
-ctrl-shift-j = 'move down'
-ctrl-shift-k = 'move up'
-ctrl-shift-l = 'move right'
+ctrl-alt-left = 'move left'
+ctrl-alt-down = 'move down'
+ctrl-alt-up = 'move up'
+ctrl-alt-right = 'move right'
 
 # Resize
 alt-shift-minus = 'resize smart -50'
@@ -74,6 +75,9 @@ alt-shift-cmd-ctrl-v = 'workspace 1'
 alt-shift-cmd-ctrl-b = 'workspace 2'
 alt-shift-cmd-ctrl-n = 'workspace 3'
 alt-shift-cmd-ctrl-m = 'workspace 4'
+
+# Tidy — move misplaced windows on current workspace to where they belong
+alt-shift-cmd-ctrl-t = 'exec-and-forget bash ~/code/personal/my-shell-my-rules/aerospace/tidy-workspace.sh'
 
 # Move window to next monitor
 alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
@@ -107,10 +111,10 @@ alt-shift-l = ['join-with right', 'mode main']
 #   All workspaces fall back to the built-in screen automatically
 ############################################################################
 
-# Monitor 1 (main):      workspace 1 → Kitty (floating) + Slack (tiled)
-#                        workspace 2 → overflow / future use
-# Monitor 2 (secondary): workspace 3 → VS Code + Chrome (tiled 50/50)
-#                        workspace 4 → Figma (100%)
+# Workspace 1 (comms):    Outlook + Slack + Safari (EA Window profile)
+# Workspace 2 (general):  catch all — everything else lands here
+# Workspace 3 (dev):      Kitty + VS Code + Figma
+# Workspace 4 (private):  Safari (personal profile) + Obsidian
 # Laptop only: everything falls back to built-in
 
 [workspace-to-monitor-force-assignment]
@@ -123,31 +127,43 @@ alt-shift-l = ['join-with right', 'mode main']
 #                         App workspace assignments
 ############################################################################
 
-# Monitor 1 — workspace 1: Slack (tiled, fills space) + Kitty (floating on top)
-# NOTE: Kitty's size and position as a floating window must be set once manually.
-#       AeroSpace will remember it after that.
-[[on-window-detected]]
-if.app-id = 'net.kovidgoyal.kitty'
-run = ['layout floating', 'move-node-to-workspace 1']
-
+# Workspace 1 — comms
 [[on-window-detected]]
 if.app-name-regex-substring = 'Slack'
 run = 'move-node-to-workspace 1'
 
-# Monitor 2 — workspace 3: VS Code + Chrome tiled 50/50 automatically
+[[on-window-detected]]
+if.app-name-regex-substring = 'Outlook'
+run = 'move-node-to-workspace 1'
+
+# Safari EA Window profile → workspace 1
+[[on-window-detected]]
+if.app-name-regex-substring = 'Safari'
+if.window-title-regex-substring = 'EA Window'
+run = 'move-node-to-workspace 1'
+
+# Workspace 3 — dev
+# NOTE: Kitty's size and position as a floating window must be set once manually.
+#       AeroSpace will remember it after that.
+[[on-window-detected]]
+if.app-id = 'net.kovidgoyal.kitty'
+run = ['layout floating', 'move-node-to-workspace 3']
+
 [[on-window-detected]]
 if.app-name-regex-substring = 'Visual Studio Code'
 run = 'move-node-to-workspace 3'
 
 [[on-window-detected]]
-if.app-name-regex-substring = 'Zen'
-run = 'move-node-to-workspace 3'
-
-[[on-window-detected]]
-if.app-name-regex-substring = 'Google Chrome'
-run = 'move-node-to-workspace 3'
-
-# Monitor 2 — workspace 4: Figma alone, fills 100%
-[[on-window-detected]]
 if.app-name-regex-substring = 'Figma'
+run = 'move-node-to-workspace 3'
+
+# Workspace 4 — private
+[[on-window-detected]]
+if.app-name-regex-substring = 'Obsidian'
+run = 'move-node-to-workspace 4'
+
+# Safari Personal profile → workspace 4
+[[on-window-detected]]
+if.app-name-regex-substring = 'Safari'
+if.window-title-regex-substring = 'Personal'
 run = 'move-node-to-workspace 4'

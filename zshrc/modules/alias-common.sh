@@ -1,4 +1,4 @@
-# ~/code/my-shell-my-rules/zshrc/modules/alias-common.sh
+# ~/code/personal/my-shell-my-rules/zshrc/modules/alias-common.sh
 # Aliases shared across all platforms
 
 alias ll='ls -lh'
@@ -23,4 +23,4 @@ alias coverage='go test -coverprofile=coverage.out && go tool cover -html=covera
 alias lg='lazygit'
 
 # pull latest dotfiles and reload shell
-alias pulldeez='echo "Pulling latest..."; (cd ~/code/my-shell-my-rules && git pull >/dev/null 2>&1) || echo "Failed to pull"; source ~/.zshrc'
+alias pulldeez='echo "Pulling latest..."; (cd ~/code/personal/my-shell-my-rules && git pull >/dev/null 2>&1) || echo "Failed to pull"; source ~/.zshrc'

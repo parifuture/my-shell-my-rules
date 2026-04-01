@@ -1,8 +1,8 @@
-# ~/code/my-shell-my-rules/zshrc/modules/symlinks.sh
+# ~/code/personal/my-shell-my-rules/zshrc/modules/symlinks.sh
 # Creates all symlinks from ~/.config to this repo
 # Runs on every shell start — idempotent, safe to re-run
 
-DOTFILES="$HOME/code/my-shell-my-rules"
+DOTFILES="$HOME/code/personal/my-shell-my-rules"
 
 # Ensure ~/.config exists
 mkdir -p "$HOME/.config"

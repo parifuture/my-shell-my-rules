@@ -1,4 +1,4 @@
-# ~/code/my-shell-my-rules/atuin/config.toml
+# ~/code/personal/my-shell-my-rules/atuin/config.toml
 # Atuin shell history configuration
 # Docs: https://docs.atuin.sh/configuration/config/
 
@@ -15,4 +15,8 @@ show_preview = true
 exit_mode = "return-original"
 
 # Sync history across machines (requires atuin account or self-hosted server)
-# sync_address = "https://api.atuin.sh"
+sync_address = "http://54.215.174.105:8888"
+
+sync_frequency = "10m"
+
+workspace = true

@@ -1,4 +1,4 @@
-# ~/code/my-shell-my-rules/zshrc/modules/autocompletion.sh
+# ~/code/personal/my-shell-my-rules/zshrc/modules/autocompletion.sh
 
 zmodload zsh/complist
 autoload -U compinit

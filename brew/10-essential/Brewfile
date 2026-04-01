@@ -1,8 +1,9 @@
-# ~/code/my-shell-my-rules/brew/10-essential/Brewfile
+# ~/code/personal/my-shell-my-rules/brew/10-essential/Brewfile
 # Daily driver tools
-# Usage: brew bundle --file=~/code/my-shell-my-rules/brew/10-essential/Brewfile
+# Usage: brew bundle --file=~/code/personal/my-shell-my-rules/brew/10-essential/Brewfile
 
 tap "jesseduffield/lazygit"
+tap "FelixKratz/formulae"
 
 # Fonts
 cask "font-meslo-lg-nerd-font"
@@ -33,11 +34,11 @@ brew "glab"              # GitLab CLI
 brew "gitlab-runner"     # run GitLab CI pipelines locally
 cask "1password"         # password manager app
 brew "1password-cli"     # op CLI — biometric unlock after connecting in app settings
-brew "postgresql@17"     # latest postgres (17.x)
 brew "pgvector"          # Postgres vector extension (AI/embeddings)
 brew "git-delta"         # beautiful git diffs
 brew "neovim"            # text editor — using kickstart.nvim config (beginner-friendly)
 brew "btop"              # system monitor
+brew "FelixKratz/formulae/sketchybar"  # custom macOS status bar replacement
 brew "jesseduffield/lazygit/lazygit"
 brew "fastfetch"         # system info on shell start
 # kanata — NOT available via brew (cmd_allowed variant required, brew build lacks it)

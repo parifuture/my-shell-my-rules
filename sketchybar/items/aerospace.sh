@@ -2,12 +2,15 @@
 # Workspace indicators for AeroSpace
 # Highlights the focused workspace, dims inactive ones
 
-WORKSPACE_ICONS=("1" "2" "3" "4")
+sketchybar --add event aerospace_workspace_change
+
+WORKSPACE_ICONS=("$WS_COMMS" "$WS_GENERAL" "$WS_DEV" "$WS_PRIVATE")
 
 for i in "${!WORKSPACE_ICONS[@]}"; do
   sid=$((i + 1))
 
   workspace=(
+    updates=on
     icon="${WORKSPACE_ICONS[i]}"
     icon.padding_left=8
     icon.padding_right=8

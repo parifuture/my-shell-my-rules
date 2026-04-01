@@ -1,8 +1,8 @@
-# ~/code/my-shell-my-rules/zshrc/zshrc-file.sh
+# ~/code/personal/my-shell-my-rules/zshrc/zshrc-file.sh
 # This file is symlinked to ~/.zshrc
-# ln -snf ~/code/my-shell-my-rules/zshrc/zshrc-file.sh ~/.zshrc
+# ln -snf ~/code/personal/my-shell-my-rules/zshrc/zshrc-file.sh ~/.zshrc
 
-source ~/code/my-shell-my-rules/zshrc/zshrc-common.sh
+source ~/code/personal/my-shell-my-rules/zshrc/zshrc-common.sh
 
 # Detect OS
 case "$(uname -s)" in
@@ -18,7 +18,7 @@ Linux)
 esac
 
 if [ "$OS" = 'Mac' ]; then
-  source ~/code/my-shell-my-rules/zshrc/zshrc-macos.sh
+  source ~/code/personal/my-shell-my-rules/zshrc/zshrc-macos.sh
 elif [ "$OS" = 'Linux' ]; then
-  source ~/code/my-shell-my-rules/zshrc/zshrc-linux.sh
+  source ~/code/personal/my-shell-my-rules/zshrc/zshrc-linux.sh
 fi

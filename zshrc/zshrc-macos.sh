@@ -1,4 +1,4 @@
-# ~/code/my-shell-my-rules/zshrc/zshrc-macos.sh
+# ~/code/personal/my-shell-my-rules/zshrc/zshrc-macos.sh
 # macOS-specific configuration
 
 # Print system info on every new terminal
@@ -160,7 +160,7 @@ fi
 if command -v starship &>/dev/null; then
   type starship_zle-keymap-select >/dev/null ||
     {
-      export STARSHIP_CONFIG=$HOME/code/my-shell-my-rules/starship/starship.toml
+      export STARSHIP_CONFIG=$HOME/code/personal/my-shell-my-rules/starship/starship.toml
       eval "$(starship init zsh)" >/dev/null 2>&1
     }
 fi
