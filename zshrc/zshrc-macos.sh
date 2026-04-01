@@ -25,6 +25,104 @@ fi
 export SSH_AUTH_SOCK="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
 
 #############################################################################
+#                         AWS credentials via 1Password
+#############################################################################
+
+# awsp: switch AWS profile by loading credentials from 1Password
+# Profiles are defined in ~/.aws/1p-profiles.conf
+# Usage: awsp <profile>    — switch to a profile
+#        awsp               — show current profile
+#        awsp --list        — list available profiles
+function awsp() {
+  local profiles_file="$HOME/.aws/1p-profiles.conf"
+
+  if [[ ! -f "$profiles_file" ]]; then
+    echo "Missing $profiles_file" >&2
+    return 1
+  fi
+
+  # No args — show current profile
+  if [[ -z "${1:-}" ]]; then
+    echo "${AWSP_PROFILE:-<none>}"
+    return 0
+  fi
+
+  # --list — show available profiles
+  if [[ "$1" == "--list" ]]; then
+    grep '^\[' "$profiles_file" | tr -d '[]'
+    return 0
+  fi
+
+  local profile="$1"
+  local in_section=false
+  local op_item="" key_field="" secret_field="" region="" vault=""
+  local default_vault=""
+
+  while IFS= read -r line; do
+    # Skip comments and empty lines
+    [[ "$line" =~ ^#.*$ || -z "$line" ]] && continue
+
+    if [[ "$line" == "[$profile]" ]]; then
+      in_section=true
+      continue
+    elif [[ "$line" =~ ^\[.*\]$ ]]; then
+      in_section=false
+      continue
+    fi
+
+    if $in_section; then
+      case "$line" in
+        op_item=*)      op_item="${line#op_item=}" ;;
+        key_field=*)    key_field="${line#key_field=}" ;;
+        secret_field=*) secret_field="${line#secret_field=}" ;;
+        region=*)       region="${line#region=}" ;;
+        vault=*)        vault="${line#vault=}" ;;
+      esac
+    else
+      # Global settings (before any section)
+      case "$line" in
+        vault=*) default_vault="${line#vault=}" ;;
+      esac
+    fi
+  done < "$profiles_file"
+
+  vault="${vault:-$default_vault}"
+
+  if [[ -z "$op_item" ]]; then
+    echo "Profile '$profile' not found. Available profiles:" >&2
+    awsp --list >&2
+    return 1
+  fi
+
+  if [[ -z "$vault" ]]; then
+    echo "No vault configured. Set 'vault=...' in $profiles_file" >&2
+    return 1
+  fi
+
+  echo "Loading AWS credentials from 1Password..."
+  local access_key secret_key
+
+  access_key=$(op item get "$op_item" --vault "$vault" --fields "$key_field" --reveal 2>/dev/null) || {
+    echo "Failed to fetch access key from 1Password" >&2; return 1
+  }
+  secret_key=$(op item get "$op_item" --vault "$vault" --fields "$secret_field" --reveal 2>/dev/null) || {
+    echo "Failed to fetch secret key from 1Password" >&2; return 1
+  }
+
+  export AWS_ACCESS_KEY_ID="$access_key"
+  export AWS_SECRET_ACCESS_KEY="$secret_key"
+  export AWS_DEFAULT_REGION="${region:-us-west-1}"
+
+  # Clear vars that would conflict with static credentials
+  unset AWS_PROFILE AWS_SESSION_TOKEN 2>/dev/null
+
+  # Track active profile for display purposes
+  export AWSP_PROFILE="$profile"
+
+  echo "Switched to AWS profile: $profile (region: $AWS_DEFAULT_REGION)"
+}
+
+#############################################################################
 #                              PATH additions
 #############################################################################
 

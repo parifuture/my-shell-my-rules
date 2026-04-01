@@ -3,7 +3,7 @@
 source "$CONFIG_DIR/colors.sh"
 
 export PATH="/opt/homebrew/bin:$PATH"
-export HOMEBREW_DOWNLOAD_CONCURRENCY=1
+export HOMEBREW_DOWNLOAD_CONCURRENCY=4
 
 if OUT="$(brew outdated 2>/dev/null)"; then
   if [ -z "$OUT" ]; then
