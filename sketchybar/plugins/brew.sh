@@ -2,10 +2,15 @@
 
 source "$CONFIG_DIR/colors.sh"
 
+export PATH="/opt/homebrew/bin:$PATH"
 export HOMEBREW_DOWNLOAD_CONCURRENCY=1
 
-if OUT="$(brew outdated 2>&1)"; then
-  COUNT="$(printf "%s\n" "$OUT" | wc -l | tr -d ' ')"
+if OUT="$(brew outdated 2>/dev/null)"; then
+  if [ -z "$OUT" ]; then
+    COUNT=0
+  else
+    COUNT="$(printf "%s\n" "$OUT" | wc -l | tr -d ' ')"
+  fi
 else
   COUNT="!"
   COLOR=$RED
