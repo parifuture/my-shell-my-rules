@@ -30,6 +30,10 @@ WIFI_CONNECTED=􀙇
 WIFI_DISCONNECTED=􀙈
 ETHERNET_CONNECTED=󰈀
 
+# VPN
+VPN_CONNECTED=􀎠    # lock.fill — closed lock
+VPN_DISCONNECTED=􀎤  # lock.open — open lock
+
 # Workspaces
 WS_COMMS=􀈟         # chat bubble — communication
 WS_GENERAL=􀤆       # square grid — catch all

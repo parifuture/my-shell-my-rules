@@ -3,17 +3,12 @@
 update() {
   source "$CONFIG_DIR/icons.sh"
 
+  # Check Wi-Fi status directly — don't rely on default route (VPN changes it)
+  WIFI_INTERFACE="en0"
   SSID="$(/System/Library/PrivateFrameworks/Apple80211.framework/Resources/airport -I | awk -F ' SSID: ' '/ SSID: / {print $2}')"
-  INTERFACE="$(route get default | grep interface | awk '{print $2}')"
-  HARDWARE_TYPE="$(networksetup -listnetworkserviceorder | grep -B 1 "Device: $INTERFACE" | head -n 1 | awk '{print $2}')"
-  IP="$(ipconfig getifaddr "$INTERFACE")"
+  IP="$(ipconfig getifaddr "$WIFI_INTERFACE")"
 
-  if [[ "$HARDWARE_TYPE" == "Wi-Fi" ]]; then
-    ICON="$([ -n "$IP" ] && echo "$WIFI_CONNECTED" || echo "$WIFI_DISCONNECTED")"
-  else
-    ICON="$([ -n "$IP" ] && echo "$ETHERNET_CONNECTED" || echo "$WIFI_DISCONNECTED")"
-  fi
-
+  ICON="$([ -n "$IP" ] && echo "$WIFI_CONNECTED" || echo "$WIFI_DISCONNECTED")"
   LABEL="$([ -n "$IP" ] && echo "$SSID ($IP)" || echo "Disconnected")"
   sketchybar --set "$NAME" icon="$ICON" label="$LABEL"
 }

@@ -130,11 +130,11 @@ alt-shift-l = ['join-with right', 'mode main']
 # Workspace 1 — comms
 [[on-window-detected]]
 if.app-name-regex-substring = 'Slack'
-run = 'move-node-to-workspace 1'
+run = ['move-node-to-workspace 1', 'fullscreen on']
 
 [[on-window-detected]]
 if.app-name-regex-substring = 'Outlook'
-run = 'move-node-to-workspace 1'
+run = ['move-node-to-workspace 1', 'fullscreen on']
 
 # Safari EA Window profile → workspace 1
 [[on-window-detected]]
@@ -142,7 +142,17 @@ if.app-name-regex-substring = 'Safari'
 if.window-title-regex-substring = 'EA Window'
 run = 'move-node-to-workspace 1'
 
+# Workspace 2 — general
+# Cisco Secure Client: park on ws2 and minimize so VPN stays connected but out of sight
+[[on-window-detected]]
+if.app-name-regex-substring = 'Cisco Secure Client'
+run = ['move-node-to-workspace 2', 'layout floating', 'macos-native-minimize']
+
 # Workspace 3 — dev
+[[on-window-detected]]
+if.app-name-regex-substring = 'Google Chrome'
+run = ['move-node-to-workspace 3', 'fullscreen on']
+
 # NOTE: Kitty's size and position as a floating window must be set once manually.
 #       AeroSpace will remember it after that.
 [[on-window-detected]]

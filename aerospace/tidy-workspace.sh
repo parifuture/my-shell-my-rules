@@ -10,6 +10,10 @@ get_target_workspace() {
   case "$app" in
     *Slack*|*Outlook*)
       echo 1 ;;
+    *"Cisco Secure Client"*)
+      echo 2 ;;
+    *"Google Chrome"*)
+      echo 3 ;;
     *Safari*)
       if [[ "$title" == *"EA Window"* ]]; then
         echo 1
