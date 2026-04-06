@@ -138,7 +138,7 @@ if command -v pnpm &>/dev/null; then
 fi
 
 # Claude Code CLI
-if [ -d "$HOME/.claude-code/bin" ]; then
+if [ -d "$HOME/.local/bin" ]; then
   export PATH="$HOME/.local/bin:$PATH"
 fi
 
