@@ -131,6 +131,18 @@ if [ -d "$HOME/go/bin" ]; then
   export PATH=$PATH:$HOME/go/bin
 fi
 
+# pnpm — global bin directory
+if command -v pnpm &>/dev/null; then
+  export PNPM_HOME="$HOME/Library/pnpm"
+  export PATH="$PNPM_HOME:$PATH"
+fi
+
+# Claude Code CLI
+if [ -d "$HOME/.claude-code/bin" ]; then
+  export PATH="$HOME/.local/bin:$PATH"
+fi
+
+
 #############################################################################
 #                              Colorscheme
 #############################################################################
