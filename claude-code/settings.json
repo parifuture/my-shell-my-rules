@@ -89,6 +89,16 @@
         "-y",
         "pmll-memory-mcp"
       ]
+    },
+    "linear": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://mcp.linear.app/sse"
+      ],
+      "env": {
+        "LINEAR_API_KEY": "${LINEAR_API_KEY}"
+      }
     }
   }
 }
