@@ -13,21 +13,23 @@
       {
         "scope": "comment",
         "settings": {
-          "fontStyle": "italic"
-        }
+          "fontStyle": "italic",
+        },
       },
       {
         "scope": "comment.block.documentation",
         "settings": {
-          "fontStyle": "italic"
-        }
-      }
-    ]
+          "fontStyle": "italic",
+        },
+      },
+    ],
   },
   "git.autofetch": true,
   "window.zoomLevel": 1,
   "window.autoDetectColorScheme": true,
   "security.workspace.trust.untrustedFiles": "open",
   "workbench.sideBar.location": "right",
-  "chat.mcp.gallery.enabled": true
+  "chat.mcp.gallery.enabled": true,
+  "gitlens.ai.model": "vscode",
+  "gitlens.ai.vscode.model": "copilot:gpt-4.1",
 }
