@@ -7,6 +7,7 @@ tap "FelixKratz/formulae"
 
 # Fonts
 cask "font-meslo-lg-nerd-font"
+cask "font-symbols-only-nerd-font"   # icon-only Nerd Font (used as kitty symbol_map fallback)
 cask "sf-symbols"
 
 # Languages
@@ -38,6 +39,7 @@ brew "1password-cli"     # op CLI — biometric unlock after connecting in app s
 # and drops its .so into brew's install tree, which pgenv-managed postgres never loads.
 # We build pgvector from source in scripts/pgenv-setup.sh, pointed at pgenv's pg_config.
 brew "git-delta"         # beautiful git diffs
+brew "vivid"             # generates LS_COLORS palettes for zsh/fzf-tab completion coloring
 brew "neovim"            # text editor — using kickstart.nvim config (beginner-friendly)
 brew "btop"              # system monitor
 brew "FelixKratz/formulae/sketchybar"  # custom macOS status bar replacement

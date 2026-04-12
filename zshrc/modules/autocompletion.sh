@@ -27,6 +27,24 @@ autoload -U compinit
 compinit
 _comp_options+=(globdots) # include hidden files in completions
 
+# LS_COLORS — macOS ships with LSCOLORS (BSD) not LS_COLORS (GNU), which means
+# zsh's completion and fzf-tab have no color info by default. Generate a rich
+# palette via vivid (brew) or fall back to gdircolors (brew coreutils).
+# Without this, every completion match renders in white.
+if [[ -z "$LS_COLORS" ]]; then
+  if command -v vivid &>/dev/null; then
+    export LS_COLORS="$(vivid generate tokyonight-moon 2>/dev/null)"
+  elif command -v gdircolors &>/dev/null; then
+    eval "$(gdircolors -b)"
+  fi
+fi
+
+# Make aliases that wrap ls/eza pick up the same completion + previews
+compdef ll=ls
+compdef la=ls
+compdef lla=ls
+compdef l=ls
+
 setopt AUTO_LIST           # automatically list choices on ambiguous completion
 setopt AUTO_MENU           # show the completion menu on successive tab press
 setopt COMPLETE_IN_WORD    # complete from both ends of a word
@@ -105,12 +123,26 @@ if [[ -f "$_FZF_TAB_DIR/fzf-tab.plugin.zsh" ]] && command -v fzf &>/dev/null; th
 
   source "$_FZF_TAB_DIR/fzf-tab.plugin.zsh"
 
-  # Preview: directory contents via eza (with icons) when completing cd/ls/tree/etc.
+  # Catch-all preview: whenever a completion has a real filesystem path,
+  # show the directory contents (via eza with icons) or the file contents
+  # (via bat). Applies to cd, ls, ll, la, vim, nvim, code, bat, cat, less,
+  # rm, cp, mv, mkdir, any custom alias — anything that completes paths.
   if command -v eza &>/dev/null; then
-    zstyle ':fzf-tab:complete:cd:*' fzf-preview \
-      'eza -1 --color=always --icons=always --group-directories-first $realpath'
-    zstyle ':fzf-tab:complete:(ls|tree|bat|cat|vim|nvim|code|less):*' fzf-preview \
-      '[[ -d $realpath ]] && eza -1 --color=always --icons=always --group-directories-first $realpath || bat --color=always --style=numbers --line-range=:200 $realpath 2>/dev/null || cat $realpath'
+    zstyle ':fzf-tab:complete:*:*' fzf-preview '
+      if [[ -z $realpath ]]; then
+        echo ${(P)word} 2>/dev/null
+      elif [[ -d $realpath ]]; then
+        eza -1 --color=always --icons=always --group-directories-first $realpath
+      elif [[ -f $realpath ]]; then
+        if command -v bat &>/dev/null; then
+          bat --color=always --style=numbers --line-range=:200 $realpath 2>/dev/null
+        else
+          head -200 $realpath 2>/dev/null
+        fi
+      else
+        echo $word
+      fi
+    '
   fi
 
   # Preview for git: show commit / diff / file contents
