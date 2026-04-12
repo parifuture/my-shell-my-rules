@@ -168,6 +168,11 @@ if [[ -f "$_FZF_TAB_DIR/fzf-tab.plugin.zsh" ]] && command -v fzf &>/dev/null; th
   # Accept the current match on Enter without running (same as native menu)
   zstyle ':fzf-tab:*' accept-line enter
 
+  # Continuous drill-down: pressing `/` on a highlighted directory inserts it
+  # and re-triggers completion, so you can walk `code/ → backstage/ → src/`
+  # in one menu. Enter commits wherever you are.
+  zstyle ':fzf-tab:*' continuous-trigger '/'
+
   # Make the popup bigger and more visually distinctive
   zstyle ':fzf-tab:*' popup-min-size 80 12
   zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup 2>/dev/null || zstyle ':fzf-tab:*' fzf-command fzf
