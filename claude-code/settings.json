@@ -1,0 +1,94 @@
+{
+  "hooks": {
+    "WorktreeCreate": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jcodemunch-mcp hook-event create"
+          }
+        ]
+      }
+    ],
+    "WorktreeRemove": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jcodemunch-mcp hook-event remove"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Read",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jcodemunch-mcp hook-pretooluse"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jcodemunch-mcp hook-posttooluse"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jcodemunch-mcp hook-precompact"
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/scripts/context-bar.sh"
+  },
+  "enabledPlugins": {
+    "sentrux@sentrux-marketplace": true,
+    "dev-workflow@unimatrix-forge": true,
+    "superpowers@claude-plugins-official": true,
+    "vercel@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "sentrux-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "sentrux/sentrux"
+      }
+    },
+    "unimatrix-forge": {
+      "source": {
+        "source": "directory",
+        "path": "/Users/partiwari/code/ai-toolkit"
+      }
+    }
+  },
+  "autoUpdatesChannel": "latest",
+  "skipDangerousModePermissionPrompt": true,
+  "mcpServers": {
+    "pmll-memory-mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "pmll-memory-mcp"
+      ]
+    }
+  }
+}

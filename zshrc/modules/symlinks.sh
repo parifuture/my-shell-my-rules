@@ -68,3 +68,10 @@ link "$DOTFILES/neovim" "$HOME/.config/nvim"
 # neovide
 mkdir -p "$HOME/.config/neovide"
 link "$DOTFILES/neovide/config.toml" "$HOME/.config/neovide/config.toml"
+
+# claude code (only if installed)
+if command -v claude &>/dev/null; then
+  mkdir -p "$HOME/.claude/scripts"
+  link "$DOTFILES/claude-code/scripts/context-bar.sh" "$HOME/.claude/scripts/context-bar.sh"
+  link "$DOTFILES/claude-code/settings.json" "$HOME/.claude/settings.json"
+fi
