@@ -137,6 +137,47 @@ source ~/.zshrc
 - [ ] **AeroSpace — Kitty floating window** — On first launch, manually resize and position
   the Kitty window to your preferred size. AeroSpace will remember the position after that.
 
+- [ ] **PostgreSQL via pgenv** — postgres is managed by [pgenv](https://github.com/theory/pgenv)
+  rather than brew so you can hold multiple major versions side-by-side and switch per-project.
+  pgenv compiles postgres from source. The repo ships a bootstrap script that handles brew
+  deps, build flags, initdb, user role, and extension setup in one idempotent command:
+  ```sh
+  # one-time prerequisite — clone pgenv (not a brew formula)
+  git clone https://github.com/theory/pgenv.git ~/.pgenv
+  exec zsh                              # picks up PGENV_ROOT + PATH from zshrc-macos.sh
+
+  # then run the bootstrap — safe to re-run anytime
+  ./scripts/pgenv-setup.sh
+  ```
+  What the script does (so you know what's installed):
+  1. Installs brew build deps (`pkg-config`, `icu4c`, `util-linux`) if missing.
+  2. Seeds `~/.pgenv/config/17.9.conf` with `PGENV_CONFIGURE_OPTIONS=(--with-uuid=e2fs)`
+     **before** running `pgenv build`, because pgenv auto-generates that file during build
+     and overrides any `PGENV_CONFIGURE_OPTIONS` you export in the shell (we learned this
+     the hard way — see the memory note for the gory details).
+  3. Builds `postgres 17.9` with `--with-uuid=e2fs` so the `uuid-ossp` contrib extension
+     compiles in. This is the **only macOS-compatible UUID backend**:
+     - `--with-uuid=bsd` fails — macOS's libc BSD UUID API doesn't match postgres's signatures.
+     - `--with-uuid=ossp` via brew's `ossp-uuid` fails — its `<ossp/uuid.h>` redefines
+       `uuid_t`, which collides with the macOS SDK's own `uuid_t` typedef.
+     - `--with-uuid=e2fs` via brew's `util-linux` (which ships libuuid on macOS) works cleanly.
+  4. Runs `pgenv use 17.9` to activate and start the server on port 5432.
+  5. Creates a login superuser role matching your macOS username (pgenv's default `initdb`
+     only creates the `postgres` user, unlike brew's postgres formula).
+  6. Builds `pgvector` from source against pgenv's `pg_config` and installs it into
+     pgenv's extension tree. Brew's `pgvector` formula is *not* used — it builds against
+     brew's postgres install, which pgenv never loads from.
+  7. Enables `uuid-ossp`, `citext`, `vector`, and `pg_trgm` extensions in `template1`,
+     so every future database you create inherits all four automatically — no per-project
+     `CREATE EXTENSION` needed. Backstage relies on `uuid_generate_v4()` from `uuid-ossp`
+     and the `gin_trgm_ops` operator class from `pg_trgm` for fuzzy-text GIN indexes.
+
+  Day-to-day: `pgenv start` / `pgenv stop` / `pgenv restart` to control the running cluster,
+  `pgenv use <version>` to switch between built versions, `pgenv versions` to see what's
+  installed locally, `pgenv available` to see what's downloadable.
+
+  To add a different major version later: `PG_VERSION=18.3 ./scripts/pgenv-setup.sh`.
+
 - [ ] **sketchybar** — custom macOS status bar replacement. Three steps:
 
   1. **Hide the default macOS menu bar** — this is required so both bars don't overlap:
@@ -302,12 +343,14 @@ This configures:
 - **Folder icon**: custom purple terminal icon on `~/code` (stored in `assets/code-folder.icns`)
 - **Cleanup**: disables `.DS_Store` on network and USB volumes
 
+
 ## Scripts
 
 | Script | Purpose |
 |--------|---------|
 | `scripts/macos-finder.sh` | Configures Finder defaults, sidebar, and custom `~/code` folder icon. Requires `fileicon` and `mysides`. |
 | `scripts/aws-secrets-to-1password.sh` | Syncs AWS Secrets Manager secrets into 1Password. Interactive selection or `--all`. Compares and updates existing items. Config via `scripts/.env` (gitignored, see `.env.example`). |
+| `scripts/pgenv-setup.sh` | Builds postgres via pgenv with `--with-uuid=bsd`, creates a login role for your macOS user, and enables `uuid-ossp` + `citext` in `template1`. Idempotent. Override version with `PG_VERSION=...`. |
 
 ---
 

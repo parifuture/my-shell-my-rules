@@ -221,8 +221,8 @@ fi
 
 # pgenv — postgres version manager
 # Usage: pgenv install 16.4 / pgenv use 16.4 / pgenv versions
-if command -v pgenv &>/dev/null; then
-  export PGENV_ROOT="$HOME/.pgenv"
+export PGENV_ROOT="$HOME/.pgenv"
+if [ -d "$PGENV_ROOT" ]; then
   export PATH="$PGENV_ROOT/bin:$PGENV_ROOT/pgsql/bin:$PATH"
 fi
 

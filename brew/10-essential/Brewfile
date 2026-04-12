@@ -34,7 +34,9 @@ brew "glab"              # GitLab CLI
 brew "gitlab-runner"     # run GitLab CI pipelines locally
 cask "1password"         # password manager app
 brew "1password-cli"     # op CLI — biometric unlock after connecting in app settings
-brew "pgvector"          # Postgres vector extension (AI/embeddings)
+# NOTE: pgvector is NOT installed via brew. Brew's formula builds against brew's postgres
+# and drops its .so into brew's install tree, which pgenv-managed postgres never loads.
+# We build pgvector from source in scripts/pgenv-setup.sh, pointed at pgenv's pg_config.
 brew "git-delta"         # beautiful git diffs
 brew "neovim"            # text editor — using kickstart.nvim config (beginner-friendly)
 brew "btop"              # system monitor
