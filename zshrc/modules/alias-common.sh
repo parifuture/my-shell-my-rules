@@ -38,6 +38,18 @@ opyarn() {
   NODE_OPTIONS="--no-node-snapshot" op run --environment "zc4xvtog5lackxtpusktr7umli" -- yarn "$@"
 }
 
+# `who is <domain>` → route to quien (the better WHOIS/DNS/SSL TUI).
+# Plain `who` (with any other argument, or no arg) still runs the real macOS
+# command that lists logged-in users.
+who() {
+  if [[ "$1" == "is" ]]; then
+    shift
+    command quien "$@"
+  else
+    command who "$@"
+  fi
+}
+
 # Guard: inside ~/code/backstage, intercept plain `yarn` and nudge toward `opyarn`.
 # Uses a function (not an alias) because it needs to inspect $PWD at call time.
 # Startup cost is a single function definition (microseconds); call-time cost is one
