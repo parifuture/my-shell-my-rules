@@ -7,6 +7,11 @@ alias python='python3'
 alias history='history -30'
 alias x='exit'
 
+# quick directory jumps
+alias C='cd ~/code'
+alias B='cd ~/code/backstage'
+alias A='cd ~/code/ai-toolkit'
+
 # kubernetes
 alias k='kubectl'
 alias kx='kubectx'
