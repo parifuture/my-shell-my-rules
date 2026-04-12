@@ -1,0 +1,18 @@
+# ~/code/personal/my-shell-my-rules/litellm/config.yaml
+# LiteLLM proxy config — exposes Bedrock models as OpenAI-compatible API
+# Used by contextplus MCP server for semantic code search
+
+model_list:
+  - model_name: embed-model
+    litellm_params:
+      model: bedrock/cohere.embed-english-v3
+      aws_access_key_id: os.environ/AWS_ACCESS_KEY_ID
+      aws_secret_access_key: os.environ/AWS_SECRET_ACCESS_KEY
+      aws_region_name: "us-west-2"
+
+  - model_name: chat-model
+    litellm_params:
+      model: bedrock/anthropic.claude-3-haiku-20240307-v1:0
+      aws_access_key_id: os.environ/AWS_ACCESS_KEY_ID
+      aws_secret_access_key: os.environ/AWS_SECRET_ACCESS_KEY
+      aws_region_name: "us-west-2"

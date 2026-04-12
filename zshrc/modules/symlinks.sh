@@ -75,3 +75,9 @@ if command -v claude &>/dev/null; then
   link "$DOTFILES/claude-code/scripts/context-bar.sh" "$HOME/.claude/scripts/context-bar.sh"
   link "$DOTFILES/claude-code/settings.json" "$HOME/.claude/settings.json"
 fi
+
+# litellm proxy (launchd daemon for Bedrock → OpenAI-compatible bridge)
+if command -v litellm &>/dev/null; then
+  mkdir -p "$HOME/.local/log"
+  link "$DOTFILES/litellm/com.partiwari.litellm-proxy.plist" "$HOME/Library/LaunchAgents/com.partiwari.litellm-proxy.plist"
+fi

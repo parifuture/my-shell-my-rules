@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.partiwari.litellm-proxy</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/opt/homebrew/bin/bash</string>
+        <string>/Users/partiwari/code/personal/my-shell-my-rules/litellm/start-litellm.sh</string>
+    </array>
+
+    <!-- Start on login, restart on crash -->
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <dict>
+        <key>SuccessfulExit</key>
+        <false/>
+    </dict>
+
+    <!-- Wait 5s before restart to avoid hammering 1Password on repeated failures -->
+    <key>ThrottleInterval</key>
+    <integer>5</integer>
+
+    <!-- Logs -->
+    <key>StandardOutPath</key>
+    <string>/Users/partiwari/.local/log/litellm-proxy.out.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/partiwari/.local/log/litellm-proxy.err.log</string>
+
+    <!-- 1Password CLI needs PATH -->
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+    </dict>
+</dict>
+</plist>
