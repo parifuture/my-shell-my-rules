@@ -4,6 +4,7 @@
 
 tap "jesseduffield/lazygit"
 tap "FelixKratz/formulae"
+tap "retlehs/tap"
 
 # Fonts
 cask "font-meslo-lg-nerd-font"
@@ -30,6 +31,7 @@ go "go.uber.org/mock/mockgen"            # Go mock generator
 
 # Dev tools
 brew "gh"                # GitHub CLI
+brew "retlehs/tap/quien" # better WHOIS/DNS/SSL/HTTP/SEO TUI — replaces whois for domain inspection
 brew "awscli"            # AWS CLI
 brew "glab"              # GitLab CLI
 brew "gitlab-runner"     # run GitLab CI pipelines locally
