@@ -5,6 +5,7 @@
 # Shell
 brew "bash"               # macOS ships with bash 3.2 (2007) due to GPL licensing
 brew "zsh-autosuggestions"
+brew "zsh-completions"    # extra completions (yarn, etc.) — wired into fpath in zshrc/modules/autocompletion.sh
 brew "starship"
 
 # Node — managed via fnm (fast node manager), not brew directly

@@ -343,6 +343,56 @@ This configures:
 - **Folder icon**: custom purple terminal icon on `~/code` (stored in `assets/code-folder.icns`)
 - **Cleanup**: disables `.DS_Store` on network and USB volumes
 
+## Shell completions
+
+Extra zsh completions live in two places, both prepended to `fpath` in `zshrc/modules/autocompletion.sh`:
+
+1. **Brew package `zsh-completions`** — pulled in via `brew/00-base/Brewfile`. Provides `_yarn`, `_docker`, and many others that don't ship with zsh itself.
+2. **Repo-owned dir `zshrc/completions/`** — anything we need to generate, patch, or override locally. This dir is first in `fpath`, so files here win over brew's.
+
+### `_pnpm` — auto-regenerated
+
+`pnpm` ships its own completion generator (`pnpm completion zsh`) but there's no brew package for it. Rather than remember to regenerate after upgrades, `autocompletion.sh` runs a two-stat check on every shell startup: if the `pnpm` binary is newer than `zshrc/completions/_pnpm`, it regenerates the file and clears `~/.zcompdump` so the next `compinit` picks up any new subcommands. No action needed on upgrade.
+
+### `_yarn` — patched fork of upstream
+
+**What:** `zshrc/completions/_yarn` is a vendored copy of `zsh-completions`' `_yarn` with a small local patch. Because our dir is first in `fpath`, this version overrides the brew one.
+
+**Why:** Upstream `_yarn` only offers package.json scripts under `yarn run <script>`. At position 1 after bare `yarn`, it only offers hardcoded subcommands (`add`, `install`, `workspace`, …). So typing `yarn typecheck<Tab>` matches no subcommand, and zsh falls back to *file* completion — showing directory contents instead of scripts. Annoying in any Node repo.
+
+**The patch** (three edits in `zshrc/completions/_yarn`):
+
+```zsh
+# 1. line 48 — swap the position-1 completer
+-    '1: :_yarn_subcommands' \
++    '1: :_yarn_subcommands_or_scripts' \
+
+# 2. after the _yarn_subcommands function — add a merging wrapper
+_yarn_subcommands_or_scripts() {
+  _yarn_subcommands "$@"
+  _yarn_scripts "$@"
+}
+
+# 3. inside _yarn_scripts, escape colons in jq output — otherwise _values
+#    treats `typecheck:affected` as name=typecheck, description=affected
+#    and collapses it into a single `typecheck` entry.
+-    scripts=($(jq -r '.scripts | keys | .[]' "$package_json" 2>/dev/null))
++    scripts=($(jq -r '.scripts | keys | .[]' "$package_json" 2>/dev/null | sed 's/:/\\:/g'))
+```
+
+**Example:** in a repo with a `typecheck` script in `package.json`:
+
+```
+# before the patch
+$ yarn typech<Tab>
+app-config.yaml   build/   CHANGELOG.md   ...   # ← file completion, useless
+
+# after the patch
+$ yarn typech<Tab>
+typecheck   typecheck:affected                  # ← scripts, as expected
+```
+
+**Trade-off:** this file is a fork, so it does **not** auto-update when `brew upgrade zsh-completions` pulls a newer `_yarn`. If yarn adds new subcommands or flags upstream, re-copy `/opt/homebrew/share/zsh-completions/_yarn` into `zshrc/completions/_yarn` and re-apply the two edits above.
 
 ## Scripts
 
