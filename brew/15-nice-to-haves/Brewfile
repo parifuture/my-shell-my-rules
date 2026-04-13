@@ -40,3 +40,6 @@ cask "linearmouse"
 
 # Markdown editor with live preview
 cask "xykong/tap/flux-markdown"
+
+# supacode
+cask "supacode"
