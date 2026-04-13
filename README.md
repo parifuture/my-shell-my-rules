@@ -134,9 +134,6 @@ source ~/.zshrc
      awsp --list     # list available profiles
      ```
 
-- [ ] **AeroSpace — Kitty floating window** — On first launch, manually resize and position
-  the Kitty window to your preferred size. AeroSpace will remember the position after that.
-
 - [ ] **PostgreSQL via pgenv** — postgres is managed by [pgenv](https://github.com/theory/pgenv)
   rather than brew so you can hold multiple major versions side-by-side and switch per-project.
   pgenv compiles postgres from source. The repo ships a bootstrap script that handles brew
@@ -177,20 +174,6 @@ source ~/.zshrc
   installed locally, `pgenv available` to see what's downloadable.
 
   To add a different major version later: `PG_VERSION=18.3 ./scripts/pgenv-setup.sh`.
-
-- [ ] **sketchybar** — custom macOS status bar replacement. Three steps:
-
-  1. **Hide the default macOS menu bar** — this is required so both bars don't overlap:
-     - **macOS Sonoma / Sequoia**: `System Settings → Control Center → "Automatically hide and show the menu bar"` → set to **Always**
-     - **macOS Ventura**: `System Settings → Desktop & Dock → "Automatically hide and show the menu bar"` → set to **Always**
-
-  2. **Enable "Displays have separate Spaces"** — required for sketchybar to work on all monitors:
-     - `System Settings → Desktop & Dock → "Displays have separate Spaces"` → turn **on** (requires logout/login)
-
-  3. **Start the service**:
-     ```sh
-     brew services start sketchybar
-     ```
 
 - [ ] **Kanata** — the Homebrew formula does not include the `cmd` feature needed for app switching.
   Install the `cmd_allowed` binary manually from the GitHub release:
@@ -252,76 +235,6 @@ source ~/.zshrc
   v  # opens nvim, lazy.nvim will auto-install everything on first run
   ```
   Then run `:checkhealth` inside Neovim to verify everything is working.
-
----
-
-## AeroSpace cheatsheet
-
-AeroSpace is a keyboard-driven tiling window manager. It uses vim-style `hjkl` for directions. Windows are organized in a tree — containers hold windows, and each container has a layout (tiles or accordion) and orientation (horizontal or vertical).
-
-### Concepts
-
-- **Focus** = select a window (doesn't move anything)
-- **Move** = physically reposition the focused window
-- **Tiles** = windows side-by-side, all visible
-- **Accordion** = windows stacked, only one visible at a time (navigate with focus)
-- **Service mode** = secondary keybinding layer for less common operations
-
-### Navigation
-
-| Keys | Action |
-|------|--------|
-| `cmd-shift-h/j/k/l` | Focus window left / down / up / right |
-| `alt-o` | Toggle focus between last two windows |
-
-### Moving windows
-
-| Keys | Action |
-|------|--------|
-| `ctrl-alt-arrow keys` | Move window left / down / up / right |
-| `alt-shift-tab` | Move workspace to next monitor |
-
-### Layout
-
-| Keys | Action |
-|------|--------|
-| `cmd-shift-f` | Toggle fullscreen |
-| `alt-/` | Cycle tile orientation (horizontal ↔ vertical) |
-| `alt-,` | Cycle accordion orientation (horizontal ↔ vertical) |
-| `alt-shift--` | Shrink window (50px) |
-| `alt-shift-=` | Grow window (50px) |
-
-### Workspaces
-
-| Keys | Workspace | Default monitor | Default apps |
-|------|-----------|-----------------|--------------|
-| `Caps Lock + v` | 1 (comms) | Main | Outlook, Slack, Safari (EA Window) |
-| `Caps Lock + b` | 2 (general) | Main | Catch all |
-| `Caps Lock + n` | 3 (dev) | Secondary | Kitty (floating), VS Code, Figma |
-| `Caps Lock + m` | 4 (private) | Secondary | Safari (personal), Obsidian |
-
-On a single display, all workspaces fall back to the built-in screen.
-
-### Service mode
-
-Enter with `alt-shift-;` — every action auto-returns to main mode.
-
-| Keys | Action |
-|------|--------|
-| `esc` | Reload config and exit service mode |
-| `r` | Flatten/reset workspace layout tree |
-| `f` | Toggle floating ↔ tiling for focused window |
-| `backspace` | Close all windows except current |
-| `alt-shift-h/j/k/l` | Join focused window with neighbor into a container |
-
-### Common workflows
-
-1. **Messy layout?** `alt-shift-;` then `r` to flatten the tree back to clean state
-2. **Want a window floating?** `alt-shift-;` then `f` to toggle it
-3. **Group two windows together?** `alt-shift-;` then `alt-shift-h/j/k/l` to join them
-4. **Quick window swap?** `alt-o` toggles between your last two focused windows
-
-Config: `aerospace/aerospace.toml`
 
 ---
 

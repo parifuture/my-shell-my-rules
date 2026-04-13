@@ -64,8 +64,6 @@ brew/15-nice-to-haves/Brewfile ← optional but wanted apps
 |------|---------|-----------|
 | **Kitty** | Terminal emulator | GPU-accelerated, Kitty Graphics Protocol for image previews, custom Cmd keybindings for macOS-style line editing |
 | **Starship** | Shell prompt | Fast, highly configurable, language-version aware |
-| **AeroSpace** | Window manager | No SIP disabling required, built-in shortcuts, TOML config, works great on macOS Sequoia |
-| **Sketchybar** | Custom macOS menu bar | Replaces default menu bar, shows workspaces, battery, wifi, CPU, brew, etc. |
 | **atuin** | Shell history | Replaces default history, fuzzy searchable, cross-machine sync via `Ctrl+R` |
 | **uv** | Python version + package manager | Replaces pyenv + pip entirely, reads `.python-version` auto, downloads missing versions |
 | **fnm** | Node.js version manager | Like nvm but fast, reads `.nvmrc` on `cd`, auto-downloads missing versions |
@@ -88,43 +86,16 @@ brew/15-nice-to-haves/Brewfile ← optional but wanted apps
 - **No Neovim vi-mode in zsh** — removed deliberately, developer not yet familiar with vim
 - **uv only for Python** — pyenv was considered then dropped, uv handles everything
 - **No Prettier** — developer does not use Prettier
-- **AeroSpace over yabai** — no SIP required, simpler config
+- **Native macOS Spaces over tiling WMs** — AeroSpace and Sketchybar were trialed and removed; prefers built-in Mission Control
 - **Kitty over Rio** — stability and ecosystem maturity (Rio is promising but pre-1.0)
 - **No tmux or sesh** — not needed for local-only workflow
 - **Bash upgraded via Homebrew** — macOS ships bash 3.2 (GPL licensing issue), Homebrew installs 5.x
 
 ---
 
-## Workspace layout (AeroSpace)
-
-```
-Monitor 1 (main):      workspace 1 (comms)    → Outlook, Slack, Safari (EA Window)
-                       workspace 2 (general)  → catch all
-Monitor 2 (secondary): workspace 3 (dev)      → Kitty (floating), VS Code, Figma
-                       workspace 4 (private)  → Safari (personal), Obsidian
-Laptop only:           all workspaces fall back to built-in screen
-```
-
----
-
-## Sketchybar bar layout
-
-```
-Left:  [ Apple menu ] [ 1 ] [ 2 ] [ 3 ] [ 4 ] [ App icon ]
-Right: [ Monday 3 January 14:22 ] [ brew ] [ DND ] [ WiFi ] [ Battery ] [ Volume ]
-```
-
-- AeroSpace workspace numbers highlight green when active
-- WiFi click toggles showing/hiding the IP address
-- Volume slider appears briefly when volume changes, right-click to pick audio device
-- Brew icon shows outdated package count (color-coded: green=0, white=1-9, yellow=10-29, orange=30+)
-- Brew click runs `brew update && brew upgrade` in background, then refreshes count
-
----
-
 ## Kanata keyboard remapping
 
-**Caps Lock → Hyper key** (ctrl+shift+opt+cmd) — used for AeroSpace workspace switching.
+**Caps Lock → Hyper key** (ctrl+shift+opt+cmd) — available as a modifier for chords.
 
 **F1–F12 → macOS media keys** — brightness, playback, volume mapped directly so they
 work without holding `fn`. Kanata intercepts before macOS, so this is necessary.
@@ -230,7 +201,6 @@ Run once after a fresh install. Re-run if Finder preferences are reset.
 
 - **BetterTouchTool** — import `betterTouchTool/preset.bttpreset` via File → Import Preset
 - **Kanata** — needs accessibility permissions + LaunchDaemon (`sudo launchctl load /Library/LaunchDaemons/com.kanata.daemon.plist`)
-- **Sketchybar** — needs `brew services start sketchybar`
 - **Git signing** — add SSH public key as signing key on GitHub and GitLab, set `user.signingkey` in `~/.gitconfig`
 - **AWS (awsp)** — create `~/.aws/1p-profiles.conf` with vault and profile definitions
 - **bash** — needs `sudo bash -c 'echo /opt/homebrew/bin/bash >> /etc/shells'` once

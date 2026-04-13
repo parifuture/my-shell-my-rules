@@ -44,7 +44,6 @@ brew "git-delta"         # beautiful git diffs
 brew "vivid"             # generates LS_COLORS palettes for zsh/fzf-tab completion coloring
 brew "neovim"            # text editor — using kickstart.nvim config (beginner-friendly)
 brew "btop"              # system monitor
-brew "FelixKratz/formulae/sketchybar"  # custom macOS status bar replacement
 brew "jesseduffield/lazygit/lazygit"
 brew "fastfetch"         # system info on shell start
 # kanata — NOT available via brew (cmd_allowed variant required, brew build lacks it)

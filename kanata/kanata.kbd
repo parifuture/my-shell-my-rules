@@ -1,6 +1,6 @@
 ;; ~/code/personal/my-shell-my-rules/kanata/kanata.kbd
 ;; Minimal Kanata config:
-;;   - Caps Lock → Hyper key (alt+shift+cmd+ctrl) for AeroSpace workspaces
+;;   - Caps Lock → Hyper key (alt+shift+cmd+ctrl) — available as a modifier for chords
 ;;   - Hold Enter → app switcher layer (tap a letter to jump to any app)
 ;;   - Chord a+i+r → connect AirPods Pro
 ;;
@@ -42,7 +42,7 @@
   apostm (cmd zsh -lc "open -a 'Postman'")
   asystm (cmd zsh -lc "open -a 'System Settings'")
 
-  ;; Caps Lock = Hyper key (hold) — used for AeroSpace workspace switching
+  ;; Caps Lock = Hyper key (hold) — reserved modifier for global chords
   hyper (multi lalt lsft lmet lctl)
 
   ;; Hold Enter = apps layer, tap Enter = Enter

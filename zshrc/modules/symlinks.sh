@@ -41,9 +41,6 @@ link "$DOTFILES/eligere/eligere.toml" "$HOME/.config/eligere/eligere.toml"
 # fastfetch
 link "$DOTFILES/fastfetch" "$HOME/.config/fastfetch"
 
-# aerospace
-link "$DOTFILES/aerospace/aerospace.toml" "$HOME/.config/aerospace/aerospace.toml"
-
 # kanata
 mkdir -p "$HOME/.config/kanata"
 link "$DOTFILES/kanata/kanata.kbd" "$HOME/.config/kanata/kanata.kbd"
@@ -51,9 +48,6 @@ link "$DOTFILES/kanata/kanata.kbd" "$HOME/.config/kanata/kanata.kbd"
 # lazygit
 mkdir -p "$HOME/Library/Application Support/lazygit"
 link "$DOTFILES/lazygit/config.yml" "$HOME/Library/Application Support/lazygit/config.yml"
-
-# sketchybar
-link "$DOTFILES/sketchybar" "$HOME/.config/sketchybar"
 
 # vscode
 mkdir -p "$HOME/Library/Application Support/Code/User"

@@ -2,7 +2,6 @@
 # Nice to have apps
 # Usage: brew bundle --file=~/code/personal/my-shell-my-rules/brew/15-nice-to-haves/Brewfile
 
-tap "nikitabobko/tap"
 tap "xykong/tap"
 
 # Spotlight replacement — app launcher, clipboard history, snippets
@@ -29,9 +28,6 @@ cask "bettertouchtool"
 
 # Screenshot tool — annotate, OCR, scrolling capture, record
 cask "cleanshot"
-
-# Window manager — keyboard-driven window tiling, no SIP required
-brew "nikitabobko/tap/aerospace"
 
 # Menubar mini calendar — click to see month view
 cask "itsycal"
