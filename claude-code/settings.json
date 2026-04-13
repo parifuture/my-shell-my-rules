@@ -100,5 +100,10 @@
         "LINEAR_API_KEY": "${LINEAR_API_KEY}"
       }
     }
+  },
+  "permissions": {
+    "allow": [
+      "mcp__pencil"
+    ]
   }
 }
