@@ -3,6 +3,7 @@
 # Usage: brew bundle --file=~/code/personal/my-shell-my-rules/brew/15-nice-to-haves/Brewfile
 
 tap "nikitabobko/tap"
+tap "xykong/tap"
 
 # Spotlight replacement — app launcher, clipboard history, snippets
 cask "raycast"
@@ -37,3 +38,6 @@ cask "itsycal"
 
 # Mouse customization — remap buttons, scroll speed, per-app behavior
 cask "linearmouse"
+
+# Markdown editor with live preview
+cask "xykong/tap/flux-markdown"
