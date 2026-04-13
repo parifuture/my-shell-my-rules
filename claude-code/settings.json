@@ -1,4 +1,9 @@
 {
+  "permissions": {
+    "allow": [
+      "mcp__pencil"
+    ]
+  },
   "hooks": {
     "WorktreeCreate": [
       {
@@ -101,9 +106,5 @@
       }
     }
   },
-  "permissions": {
-    "allow": [
-      "mcp__pencil"
-    ]
-  }
+  "effortLevel": "high"
 }
