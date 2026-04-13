@@ -6,7 +6,7 @@
   "editor.formatOnSave": true,
   "editor.minimap.enabled": false,
   "editor.bracketPairColorization.enabled": true,
-  "editor.accessibilitySupport": "off",
+  "editor.accessibilitySupport": "on",
   "editor.defaultFormatter": null,
   "editor.tokenColorCustomizations": {
     "textMateRules": [
