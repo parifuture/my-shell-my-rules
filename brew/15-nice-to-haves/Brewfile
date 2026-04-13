@@ -32,6 +32,9 @@ cask "cleanshot"
 # Menubar mini calendar — click to see month view
 cask "itsycal"
 
+# Window snapping — keyboard shortcuts + drag-to-edge snap regions
+cask "rectangle"
+
 # Mouse customization — remap buttons, scroll speed, per-app behavior
 cask "linearmouse"
 
