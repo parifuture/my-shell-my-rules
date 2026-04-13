@@ -123,6 +123,25 @@ function awsp() {
 }
 
 #############################################################################
+#                              pi coding agent (Bedrock)
+#############################################################################
+
+# pib: launch pi against AWS Bedrock using the `bedrock` awsp profile.
+# - auto-loads the bedrock AWS profile if not already active
+# - primary model us.anthropic.claude-sonnet-4-6, Ctrl+P cycles to opus-4-6
+# - inherits subagent extension + agents from ~/.pi/agent (symlinked to this dotfiles repo)
+function pib() {
+  if [[ "${AWSP_PROFILE:-}" != "bedrock" ]]; then
+    awsp bedrock || return 1
+  fi
+  pi \
+    --provider amazon-bedrock \
+    --model "us.anthropic.claude-sonnet-4-6" \
+    --models "us.anthropic.claude-sonnet-4-6,us.anthropic.claude-opus-4-6-v1" \
+    "$@"
+}
+
+#############################################################################
 #                              PATH additions
 #############################################################################
 
