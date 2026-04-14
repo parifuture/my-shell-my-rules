@@ -153,6 +153,36 @@ function pi() {
 }
 
 #############################################################################
+#                              Claude Code (Bedrock)
+#############################################################################
+
+# claudeb: launch Claude Code against Amazon Bedrock instead of the Anthropic
+# API. Use when the Anthropic subscription quota is exhausted — leaves the
+# plain `claude` command untouched so api.anthropic.com login still works.
+#
+# - auto-loads the bedrock AWS profile if not already active (via awsp)
+# - bakes in --dangerously-skip-permissions to match the usual workflow
+# - Sonnet 4.6 is primary; Opus 4.6 and Haiku 4.5 pinned for /model switching
+# - Sonnet/Opus pinned with the [1m] suffix so the 1M context window is
+#   always active; Haiku 4.5 does not support 1M so it stays at 200K
+# - CLAUDE_CODE_USE_BEDROCK is set only for this subprocess, so a later
+#   plain `claude` call in the same shell still talks to api.anthropic.com
+# - AWS_REGION is set explicitly because Claude Code does NOT fall back to
+#   the AWS config file or AWS_DEFAULT_REGION (docs: amazon-bedrock.md)
+function claudeb() {
+  if [[ "${AWSP_PROFILE:-}" != "bedrock" ]]; then
+    awsp bedrock || return 1
+  fi
+  CLAUDE_CODE_USE_BEDROCK=1 \
+  AWS_REGION="${AWS_DEFAULT_REGION:-us-west-1}" \
+  ANTHROPIC_MODEL='us.anthropic.claude-sonnet-4-6[1m]' \
+  ANTHROPIC_DEFAULT_SONNET_MODEL='us.anthropic.claude-sonnet-4-6[1m]' \
+  ANTHROPIC_DEFAULT_OPUS_MODEL='us.anthropic.claude-opus-4-6-v1[1m]' \
+  ANTHROPIC_DEFAULT_HAIKU_MODEL='us.anthropic.claude-haiku-4-5-20251001-v1:0' \
+    command claude --dangerously-skip-permissions "$@"
+}
+
+#############################################################################
 #                              PATH additions
 #############################################################################
 
