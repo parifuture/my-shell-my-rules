@@ -41,10 +41,6 @@ link "$DOTFILES/eligere/eligere.toml" "$HOME/.config/eligere/eligere.toml"
 # fastfetch
 link "$DOTFILES/fastfetch" "$HOME/.config/fastfetch"
 
-# kanata
-mkdir -p "$HOME/.config/kanata"
-link "$DOTFILES/kanata/kanata.kbd" "$HOME/.config/kanata/kanata.kbd"
-
 # lazygit
 mkdir -p "$HOME/Library/Application Support/lazygit"
 link "$DOTFILES/lazygit/config.yml" "$HOME/Library/Application Support/lazygit/config.yml"

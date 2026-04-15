@@ -73,7 +73,6 @@ brew/15-nice-to-haves/Brewfile ← optional but wanted apps
 | **bat** | cat replacement | Syntax highlighting, aliased as `cat` |
 | **lazygit** | Git TUI | Visual git interface, aliased as `lg` |
 | **yazi** | Terminal file manager | Navigate dirs visually, image previews via Kitty Graphics Protocol |
-| **kanata** | Keyboard remapper | App switcher layer (hold Enter), AirPods connect chord (a+i+r), F1–F12 mapped to media keys |
 | **btop** | System monitor | Beautiful terminal system monitor with custom theme |
 | **fastfetch** | System info on shell start | Shows hardware/software info with image on every new terminal |
 | **1Password CLI** | Secrets management | SSH agent for git, AWS credential injection via `awsp`, commit signing via Touch ID |
@@ -90,34 +89,6 @@ brew/15-nice-to-haves/Brewfile ← optional but wanted apps
 - **Kitty over Rio** — stability and ecosystem maturity (Rio is promising but pre-1.0)
 - **No tmux or sesh** — not needed for local-only workflow
 - **Bash upgraded via Homebrew** — macOS ships bash 3.2 (GPL licensing issue), Homebrew installs 5.x
-
----
-
-## Kanata keyboard remapping
-
-**Caps Lock → Hyper key** (ctrl+shift+opt+cmd) — available as a modifier for chords.
-
-**F1–F12 → macOS media keys** — brightness, playback, volume mapped directly so they
-work without holding `fn`. Kanata intercepts before macOS, so this is necessary.
-
-**Hold `Enter`** to activate apps layer, then press:
-
-| Key | App |
-|-----|-----|
-| `k` | Kitty |
-| `c` | Chrome |
-| `z` | Zen Browser |
-| `s` | Slack |
-| `v` | VS Code |
-| `f` (space) | Figma |
-| `d` | Discord |
-| `o` | Obsidian |
-| `w` | Windows App |
-| `p` | Postman |
-| `a` | System Settings |
-
-Chord `a+i+r` simultaneously → connect AirPods Pro.
-Update `'AirPods Pro'` in `kanata/kanata.kbd` if the device name differs.
 
 ---
 
@@ -200,7 +171,6 @@ Run once after a fresh install. Re-run if Finder preferences are reset.
 ## Configs that need manual setup (cannot be symlinked)
 
 - **BetterTouchTool** — import `betterTouchTool/preset.bttpreset` via File → Import Preset
-- **Kanata** — needs accessibility permissions + LaunchDaemon (`sudo launchctl load /Library/LaunchDaemons/com.kanata.daemon.plist`)
 - **Git signing** — add SSH public key as signing key on GitHub and GitLab, set `user.signingkey` in `~/.gitconfig`
 - **AWS (awsp)** — create `~/.aws/1p-profiles.conf` with vault and profile definitions
 - **bash** — needs `sudo bash -c 'echo /opt/homebrew/bin/bash >> /etc/shells'` once

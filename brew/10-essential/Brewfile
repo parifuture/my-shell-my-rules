@@ -46,10 +46,6 @@ brew "neovim"            # text editor — using kickstart.nvim config (beginner
 brew "btop"              # system monitor
 brew "jesseduffield/lazygit/lazygit"
 brew "fastfetch"         # system info on shell start
-# kanata — NOT available via brew (cmd_allowed variant required, brew build lacks it)
-# Install manually: see README post-installation steps
-brew "switchaudio-osx"   # CLI audio source switcher, used by kanata AirPods chord
-cask "karabiner-elements" # provides the virtual HID driver required by kanata
 
 # Kubernetes & DevOps
 brew "helm"
