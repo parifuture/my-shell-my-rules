@@ -85,6 +85,7 @@
       }
     }
   },
+  "effortLevel": "high",
   "autoUpdatesChannel": "latest",
   "skipDangerousModePermissionPrompt": true,
   "mcpServers": {
@@ -106,5 +107,5 @@
       }
     }
   },
-  "effortLevel": "high"
+  "model": "sonnet"
 }

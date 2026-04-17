@@ -13,17 +13,18 @@ A software developer working primarily with:
 - **Learning:** Rust (beginner)
 - **Infrastructure:** Kubernetes (uses kubectl, helm, kubectx, kubens)
 - **Cloud:** Google Cloud Platform (gcloud), AWS (via 1Password-backed profiles)
-- **OS:** macOS (Apple Silicon), with two external monitors when at desk
+- **OS:** macOS (Apple Silicon) + Ubuntu 24.04 on WSL2 (Windows, Ryzen 9 7900X + RTX 4090)
 
 ---
 
 ## What this repo is
 
-A personal dotfiles repository for a brand new Mac setup. It was built by reviewing
-the dotfiles of **linkarzu** (https://github.com/linkarzu/dotfiles-latest) and
-selectively adopting what made sense for this developer's stack.
+A personal dotfiles repository shared across **macOS** and **WSL2 (Ubuntu 24.04)**.
+It was built by reviewing the dotfiles of **linkarzu** (https://github.com/linkarzu/dotfiles-latest)
+and selectively adopting what made sense for this developer's stack.
 
-The repo lives at: `~/code/personal/my-shell-my-rules`
+- macOS: `~/code/personal/my-shell-my-rules`
+- WSL2: `~/code/my-shell-my-rules`
 
 ---
 
@@ -40,12 +41,15 @@ config, add its symlink here.
 zshrc/zshrc-file.sh        ← symlinked to ~/.zshrc, sources common + OS-specific
 zshrc/zshrc-common.sh      ← sources all modules (platform-agnostic)
 zshrc/zshrc-macos.sh       ← macOS tools, plugins, PATH, all CLI tool inits
-zshrc/zshrc-linux.sh       ← Linux equivalent
+zshrc/zshrc-linux.sh       ← Linux/WSL2 equivalent (vscode-sync lives here)
 zshrc/modules/
   symlinks.sh              ← creates all symlinks on every shell start
   autocompletion.sh        ← zsh completion system config
   history.sh               ← HISTFILE, HISTSIZE, setopt flags
   alias-common.sh          ← aliases shared across platforms
+  awsp.sh                  ← awsp + claudeb (AWS via 1Password, shared)
+  1password-wsl.sh         ← WSL2: SSH agent bridge + op session persistence
+  secrets.sh               ← loads API keys from 1Password on shell start
 ```
 
 ### Brewfiles
@@ -89,12 +93,16 @@ brew/15-nice-to-haves/Brewfile ← optional but wanted apps
 - **Kitty over Rio** — stability and ecosystem maturity (Rio is promising but pre-1.0)
 - **No tmux or sesh** — not needed for local-only workflow
 - **Bash upgraded via Homebrew** — macOS ships bash 3.2 (GPL licensing issue), Homebrew installs 5.x
+- **WezTerm on Windows/WSL2** — GPU terminal running on Windows side, connects to WSL2 default domain
+- **vscode-sync is manual** — `vscode-sync push/pull/diff` by hand; auto-sync on shell start would silently clobber UI-driven edits
+- **op session cached in `~/.config/op/.session`** — Linux op binary can't use Windows biometric directly; token file (chmod 600) bridges the gap. Wipe with `op-signout`.
 
 ---
 
 ## AWS credentials via 1Password
 
-The `awsp` function in `zshrc/zshrc-macos.sh` loads AWS credentials from 1Password on demand.
+The `awsp` function in `zshrc/modules/awsp.sh` loads AWS credentials from 1Password on demand.
+Works on both macOS and WSL2.
 Profiles are defined in `~/.aws/1p-profiles.conf` (not committed — contains vault name and item references).
 
 ```sh
@@ -119,7 +127,9 @@ SSO profiles remain in `~/.aws/config` for admin/console work but are separate f
 
 ## Git SSH and commit signing
 
-All git operations use SSH keys from 1Password's SSH agent (configured in `zshrc/zshrc-macos.sh`).
+All git operations use SSH keys from 1Password's SSH agent.
+- **macOS:** agent socket at `~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock`
+- **WSL2:** agent bridged via `npiperelay.exe + socat` → `~/.1password/agent.sock` (module: `1password-wsl.sh`)
 Commits and tags are signed with the same SSH key — configured globally in `~/.gitconfig`:
 
 - `gpg.format = ssh`
@@ -170,12 +180,20 @@ Run once after a fresh install. Re-run if Finder preferences are reset.
 
 ## Configs that need manual setup (cannot be symlinked)
 
-- **BetterTouchTool** — import `betterTouchTool/preset.bttpreset` via File → Import Preset
-- **Git signing** — add SSH public key as signing key on GitHub and GitLab, set `user.signingkey` in `~/.gitconfig`
+### Both platforms
+- **Git signing** — add SSH public key as a signing key on GitHub and GitLab
 - **AWS (awsp)** — create `~/.aws/1p-profiles.conf` with vault and profile definitions
+- **atuin** — optionally `atuin login` or `atuin register` for cross-machine sync
+
+### macOS only
+- **BetterTouchTool** — import `betterTouchTool/preset.bttpreset` via File → Import Preset
 - **bash** — needs `sudo bash -c 'echo /opt/homebrew/bin/bash >> /etc/shells'` once
 - **fzf** — needs `echo -e "y\ny\nn" | /opt/homebrew/opt/fzf/install` after brew install
-- **atuin** — optionally `atuin login` or `atuin register` for cross-machine sync
+
+### WSL2 only
+- **1Password** — `op account add` + `op signin --raw > ~/.config/op/.session` once
+- **VSCode settings** — `vscode-sync push` to deploy repo settings to Windows
+- **WezTerm** — copy `wezterm/wezterm.lua` to `C:\Users\<you>\.config\wezterm\` once
 
 ---
 

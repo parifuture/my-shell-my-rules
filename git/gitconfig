@@ -1,0 +1,28 @@
+[user]
+	name = Parikshit Tiwari
+	email = pari.future@gmail.com
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOzJt3BGFwgjQ3oayeIfcpJ6WxYPvZc50P6gxE539Zqf
+
+[gpg]
+	format = ssh
+
+[gpg "ssh"]
+	allowedSignersFile = ~/.ssh/allowed_signers
+
+[commit]
+	gpgsign = true
+
+[tag]
+	gpgsign = true
+
+[init]
+	defaultBranch = main
+
+[pull]
+	rebase = false
+
+[push]
+	autoSetupRemote = true
+
+[core]
+	editor = nvim

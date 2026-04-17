@@ -132,6 +132,26 @@ config.window_background_opacity = 0.85
 config.win32_system_backdrop = 'Acrylic'
 
 -----------------------------------------------------------------------------
+--                              Copy / Paste
+-----------------------------------------------------------------------------
+
+-- Mouse bindings: auto-copy on select + right-click paste (Windows convention)
+config.mouse_bindings = {
+  -- Release left button after selection → copy to clipboard automatically
+  {
+    event  = { Up = { streak = 1, button = 'Left' } },
+    mods   = 'NONE',
+    action = act.CompleteSelectionOrOpenLinkAtMouseCursor 'Clipboard',
+  },
+  -- Right-click pastes from clipboard
+  {
+    event  = { Down = { streak = 1, button = 'Right' } },
+    mods   = 'NONE',
+    action = act.PasteFrom 'Clipboard',
+  },
+}
+
+-----------------------------------------------------------------------------
 --                              Scrollback
 -----------------------------------------------------------------------------
 
@@ -175,6 +195,10 @@ config.keys = {
   -- Reload config (Kitty: ctrl+cmd+,) — WezTerm hot-reloads automatically,
   -- but provide an explicit binding anyway
   { key = ',', mods = 'CTRL|SHIFT', action = act.ReloadConfiguration },
+
+  -- Copy / Paste (Windows Terminal convention)
+  { key = 'c', mods = 'CTRL|SHIFT', action = act.CopyTo 'Clipboard' },
+  { key = 'v', mods = 'CTRL|SHIFT', action = act.PasteFrom 'Clipboard' },
 
   -- New pane (Kitty: cmd+enter)
   { key = 'Enter', mods = 'CTRL|SHIFT', action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } },

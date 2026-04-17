@@ -33,6 +33,8 @@ Huge tip of the hat. The quality of that repo is exceptional — well-structured
 
 ## Installation order
 
+### macOS
+
 ```sh
 # 1. Clone the repo
 git clone git@github.com:parifuture/my-shell-my-rules.git ~/code/personal/my-shell-my-rules
@@ -55,11 +57,60 @@ echo -e "y\ny\nn" | /opt/homebrew/opt/fzf/install
 source ~/.zshrc
 ```
 
+### WSL2 (Ubuntu 24.04)
+
+```sh
+# 1. Clone the repo (uses existing SSH key or gh auth)
+git clone git@github.com:parifuture/my-shell-my-rules.git ~/code/my-shell-my-rules
+
+# 2. Symlink zshrc
+ln -snf ~/code/my-shell-my-rules/zshrc/zshrc-file.sh ~/.zshrc
+
+# 3. Install all tools (apt + Linuxbrew + op CLI + gcloud)
+bash ~/code/my-shell-my-rules/scripts/wsl-install.sh
+
+# 4. Source zshrc to apply everything
+source ~/.zshrc
+```
+
 ---
 
 ## Post-installation manual steps
 
-### One-time setup
+### WSL2 one-time setup
+
+- [ ] **1Password SSH agent** — in the Windows 1Password app → Settings → Developer:
+  1. Enable **"Use the SSH agent"**
+  2. Enable **"Connect with 1Password CLI"**
+
+- [ ] **1Password CLI sign-in** — run once in an interactive terminal:
+  ```sh
+  op account add --address my.1password.com --email <your-email> --secret-key A3-...
+  op signin --account my --raw > ~/.config/op/.session && chmod 600 ~/.config/op/.session
+  ```
+  After this, every new shell auto-restores the session from `~/.config/op/.session`.
+  The SSH agent bridge starts automatically — test with `ssh-add -L` and `ssh -T git@github.com`.
+
+- [ ] **WezTerm config** — copy to Windows (WSL hot-reloads it):
+  ```sh
+  cp ~/code/my-shell-my-rules/wezterm/wezterm.lua /mnt/c/Users/<win-user>/.config/wezterm/wezterm.lua
+  # or use vscode-sync after first shell:
+  vscode-sync push
+  ```
+
+- [ ] **VSCode settings** — push repo settings to Windows:
+  ```sh
+  vscode-sync push
+  ```
+  Pull Windows edits back with `vscode-sync pull`. Diff with `vscode-sync diff`.
+
+- [ ] **Git signing** — add the SSH public key as a signing key on GitHub and GitLab:
+  - GitHub: https://github.com/settings/keys → add as **Signing key**
+  - Test: `ssh -T git@github.com` and `git log --show-signature`
+
+- [ ] **AWS (awsp)** — create `~/.aws/1p-profiles.conf` (see README section below)
+
+### macOS one-time setup
 
 - [ ] **bash** — Register the Homebrew bash so scripts can use it:
   ```sh

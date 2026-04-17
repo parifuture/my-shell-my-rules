@@ -28,6 +28,11 @@ link() {
 # zshrc
 link "$DOTFILES/zshrc/zshrc-file.sh" "$HOME/.zshrc"
 
+# git — identity + SSH commit signing via 1Password
+link "$DOTFILES/git/gitconfig" "$HOME/.gitconfig"
+mkdir -p "$HOME/.ssh" && chmod 700 "$HOME/.ssh"
+link "$DOTFILES/git/allowed_signers" "$HOME/.ssh/allowed_signers"
+
 # btop
 link "$DOTFILES/btop" "$HOME/.config/btop"
 

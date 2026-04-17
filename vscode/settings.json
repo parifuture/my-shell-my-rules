@@ -25,6 +25,8 @@
     ],
   },
   "git.autofetch": true,
+  "git.confirmSync": false,
+  "security.allowedUNCHosts": ["wsl.localhost"],
   "window.zoomLevel": 0,
   "window.autoDetectColorScheme": true,
   "security.workspace.trust.untrustedFiles": "open",

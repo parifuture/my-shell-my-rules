@@ -2,6 +2,10 @@
 # Linux / WSL2 specific configuration
 # $DOTFILES is exported by zshrc-file.sh
 
+# 1Password SSH agent bridge (WSL2 → Windows named pipe). Sourced early so
+# $SSH_AUTH_SOCK is set before any tool that uses SSH (git, gh, fnm clones, …).
+source "$DOTFILES/zshrc/modules/1password-wsl.sh"
+
 # Print system info on every new terminal
 if command -v fastfetch &>/dev/null; then
   fastfetch
@@ -167,3 +171,58 @@ if command -v starship &>/dev/null; then
       eval "$(starship init zsh)" >/dev/null 2>&1
     }
 fi
+
+#############################################################################
+#                              VSCode sync (WSL2)
+#############################################################################
+
+# VSCode runs on Windows and stores user settings under %APPDATA%\Code\User.
+# A WSL symlink into /mnt/c/... doesn't survive VSCode's save path, so we copy
+# on demand. `vscode-sync` pushes repo → Windows (default). `vscode-sync pull`
+# grabs whatever Windows has back into the repo for commit. `--diff` previews.
+#
+# Override the Windows user via $VSCODE_WIN_USER if auto-detection picks wrong.
+function vscode-sync() {
+  local win_user="${VSCODE_WIN_USER:-}"
+  if [[ -z "$win_user" ]]; then
+    for candidate in /mnt/c/Users/*/AppData/Roaming/Code/User; do
+      [[ -d "$candidate" ]] || continue
+      win_user="${${candidate#/mnt/c/Users/}%%/*}"
+      break
+    done
+  fi
+  if [[ -z "$win_user" ]]; then
+    echo "vscode-sync: couldn't find a Windows VSCode install under /mnt/c/Users/*/AppData/Roaming/Code/User" >&2
+    echo "vscode-sync: set VSCODE_WIN_USER=<your-windows-username> to override" >&2
+    return 1
+  fi
+
+  local win_dir="/mnt/c/Users/$win_user/AppData/Roaming/Code/User"
+  local repo_file="$DOTFILES/vscode/settings.json"
+  local win_file="$win_dir/settings.json"
+
+  case "${1:-push}" in
+    push)
+      if cmp -s "$repo_file" "$win_file" 2>/dev/null; then
+        echo "vscode-sync: already in sync ($win_file)"
+        return 0
+      fi
+      cp "$win_file" "$win_file.bak-$(date +%Y%m%d-%H%M%S)" 2>/dev/null || true
+      cp "$repo_file" "$win_file" && echo "vscode-sync: pushed repo → $win_file"
+      ;;
+    pull)
+      if cmp -s "$repo_file" "$win_file" 2>/dev/null; then
+        echo "vscode-sync: already in sync ($repo_file)"
+        return 0
+      fi
+      cp "$win_file" "$repo_file" && echo "vscode-sync: pulled $win_file → repo (review + commit)"
+      ;;
+    diff)
+      diff -u "$repo_file" "$win_file" || true
+      ;;
+    *)
+      echo "usage: vscode-sync [push|pull|diff]" >&2
+      return 1
+      ;;
+  esac
+}
