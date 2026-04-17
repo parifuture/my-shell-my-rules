@@ -9,12 +9,12 @@ if type brew &>/dev/null; then
 fi
 
 # Repo-owned completions (e.g. _pnpm — pnpm has no brew completion package)
-fpath=("$HOME/code/personal/my-shell-my-rules/zshrc/completions" $fpath)
+fpath=("$DOTFILES/zshrc/completions" $fpath)
 
 # Auto-regenerate _pnpm when the pnpm binary is newer than the cached completion.
 # Cheap: two stat calls per shell startup; the generator only fires after a pnpm upgrade.
 if command -v pnpm &>/dev/null; then
-  _pnpm_completion_file="$HOME/code/personal/my-shell-my-rules/zshrc/completions/_pnpm"
+  _pnpm_completion_file="$DOTFILES/zshrc/completions/_pnpm"
   _pnpm_bin="$(command -v pnpm)"
   if [[ ! -f "$_pnpm_completion_file" || "$_pnpm_bin" -nt "$_pnpm_completion_file" ]]; then
     pnpm completion zsh > "$_pnpm_completion_file" 2>/dev/null \

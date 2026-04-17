@@ -28,7 +28,7 @@ alias coverage='go test -coverprofile=coverage.out && go tool cover -html=covera
 alias lg='lazygit'
 
 # pull latest dotfiles and reload shell
-alias pulldeez='echo "Pulling latest..."; (cd ~/code/personal/my-shell-my-rules && git pull >/dev/null 2>&1) || echo "Failed to pull"; source ~/.zshrc'
+alias pulldeez='echo "Pulling latest..."; (cd "$DOTFILES" && git pull >/dev/null 2>&1) || echo "Failed to pull"; source ~/.zshrc'
 
 # 1Password-wrapped yarn for the Backstage repo.
 # `opyarn` runs yarn with secrets injected from the "Backstage Local" 1P Environment.

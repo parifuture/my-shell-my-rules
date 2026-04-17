@@ -1,24 +1,15 @@
-# ~/code/personal/my-shell-my-rules/zshrc/zshrc-file.sh
+# ~/code/my-shell-my-rules/zshrc/zshrc-file.sh
 # This file is symlinked to ~/.zshrc
-# ln -snf ~/code/personal/my-shell-my-rules/zshrc/zshrc-file.sh ~/.zshrc
+# ln -snf ~/code/<path>/my-shell-my-rules/zshrc/zshrc-file.sh ~/.zshrc
 
-source ~/code/personal/my-shell-my-rules/zshrc/zshrc-common.sh
+# Auto-detect repo root by resolving the ~/.zshrc symlink back to the real file.
+# %x = current source file path, :A = resolve symlinks, :h = parent directory
+DOTFILES="${${(%):-%x}:A:h:h}"
+export DOTFILES
 
-# Detect OS
+source "$DOTFILES/zshrc/zshrc-common.sh"
+
 case "$(uname -s)" in
-Darwin)
-  OS='Mac'
-  ;;
-Linux)
-  OS='Linux'
-  ;;
-*)
-  OS='Other'
-  ;;
+Darwin) source "$DOTFILES/zshrc/zshrc-macos.sh" ;;
+Linux)  source "$DOTFILES/zshrc/zshrc-linux.sh" ;;
 esac
-
-if [ "$OS" = 'Mac' ]; then
-  source ~/code/personal/my-shell-my-rules/zshrc/zshrc-macos.sh
-elif [ "$OS" = 'Linux' ]; then
-  source ~/code/personal/my-shell-my-rules/zshrc/zshrc-linux.sh
-fi
