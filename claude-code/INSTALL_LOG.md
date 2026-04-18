@@ -8,6 +8,7 @@ This is an append-only log of globally installed MCP servers, plugins, skills, a
 |------|------|---------|----------------|----------|
 | 2026-04-12 | pmll-memory-mcp | Token-saving session cache for jCodemunch results | my-shell-my-rules | Pari |
 | 2026-04-12 | linear | Official Linear MCP server (mcp.linear.app) for issue/project management | my-shell-my-rules | Claude |
+| 2026-04-14 | pencil | Pencil design editor MCP — read/write .pen files, design generation/validation | division-2-builds | Pari |
 
 ## Skills
 

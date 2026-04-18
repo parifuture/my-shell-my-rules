@@ -1,6 +1,6 @@
 ---
-name: reviewer
-description: Code review specialist for quality and security analysis
+name: reviewer-pari
+description: Code review specialist for quality and security analysis (Pari's Bedrock-pinned variant of reviewer)
 tools: read, grep, find, ls, bash
 model: us.anthropic.claude-sonnet-4-6
 ---

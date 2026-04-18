@@ -1,6 +1,6 @@
 ---
-name: scout
-description: Fast codebase recon that returns compressed context for handoff to other agents
+name: scout-pari
+description: Fast codebase recon that returns compressed context (Pari's Bedrock-pinned variant of scout)
 tools: read, grep, find, ls, bash
 model: us.anthropic.claude-sonnet-4-6
 ---

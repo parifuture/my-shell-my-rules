@@ -1,6 +1,6 @@
 ---
-name: planner
-description: Creates implementation plans from context and requirements
+name: planner-pari
+description: Creates implementation plans from context and requirements (Pari's Bedrock-pinned variant of planner)
 tools: read, grep, find, ls
 model: us.anthropic.claude-sonnet-4-6
 ---

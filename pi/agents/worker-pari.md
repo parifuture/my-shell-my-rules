@@ -1,6 +1,6 @@
 ---
-name: worker
-description: General-purpose subagent with full capabilities, isolated context
+name: worker-pari
+description: General-purpose subagent with full capabilities, isolated context (Pari's Bedrock-pinned variant of worker)
 model: us.anthropic.claude-sonnet-4-6
 ---
 
@@ -19,6 +19,6 @@ What was done.
 ## Notes (if any)
 Anything the main agent should know.
 
-If handing off to another agent (e.g. reviewer), include:
+If handing off to another agent (e.g. reviewer-pari), include:
 - Exact file paths changed
 - Key functions/types touched (short list)
