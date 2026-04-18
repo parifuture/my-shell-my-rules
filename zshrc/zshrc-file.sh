@@ -13,3 +13,6 @@ case "$(uname -s)" in
 Darwin) source "$DOTFILES/zshrc/zshrc-macos.sh" ;;
 Linux)  source "$DOTFILES/zshrc/zshrc-linux.sh" ;;
 esac
+
+# OpenClaw Completion
+source "/home/parikshit/.openclaw/completions/openclaw.zsh"

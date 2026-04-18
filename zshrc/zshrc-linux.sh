@@ -5,6 +5,14 @@
 # 1Password SSH agent bridge (WSL2 → Windows named pipe). Sourced early so
 # $SSH_AUTH_SOCK is set before any tool that uses SSH (git, gh, fnm clones, …).
 source "$DOTFILES/zshrc/modules/1password-wsl.sh"
+source "$DOTFILES/zshrc/modules/openclaw.sh"
+
+# WezTerm on Windows drops new shells into /mnt/c/Users/... or $HOME.
+# Redirect to ~/code so every fresh tab/window starts in the right place.
+# New tabs opened from inside a project keep their CWD (WezTerm passes it through).
+if [[ "$PWD" == "$HOME" || "$PWD" == /mnt/c/* ]]; then
+  cd ~/code
+fi
 
 # Print system info on every new terminal
 if command -v fastfetch &>/dev/null; then
