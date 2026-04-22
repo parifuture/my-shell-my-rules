@@ -105,10 +105,27 @@ function claudeb() {
     awsp bedrock || return 1
   fi
   CLAUDE_CODE_USE_BEDROCK=1 \
-  AWS_REGION="${AWS_DEFAULT_REGION:-us-west-1}" \
+  AWS_REGION="${AWS_DEFAULT_REGION:-us-west-2}" \
   ANTHROPIC_MODEL='us.anthropic.claude-sonnet-4-6[1m]' \
   ANTHROPIC_DEFAULT_SONNET_MODEL='us.anthropic.claude-sonnet-4-6[1m]' \
   ANTHROPIC_DEFAULT_OPUS_MODEL='us.anthropic.claude-opus-4-7[1m]' \
   ANTHROPIC_DEFAULT_HAIKU_MODEL='us.anthropic.claude-haiku-4-5-20251001-v1:0' \
     command claude --dangerously-skip-permissions "$@"
+}
+
+#############################################################################
+# hermes — Hermes Agent via Amazon Bedrock
+#############################################################################
+# Unlike claude, hermes has no non-Bedrock path worth preserving, so the
+# wrapper reuses the binary name and routes every invocation through the
+# bedrock profile. Escape hatch: `command hermes ...` bypasses the wrapper.
+# Requires: awsp bedrock profile configured in ~/.aws/1p-profiles.conf and
+# ~/.hermes/config.yaml pointed at model.provider=bedrock.
+
+function hermes() {
+  if [[ "${AWSP_PROFILE:-}" != "bedrock" ]]; then
+    awsp bedrock || return 1
+  fi
+  AWS_REGION="${AWS_DEFAULT_REGION:-us-west-2}" \
+    command hermes "$@"
 }
