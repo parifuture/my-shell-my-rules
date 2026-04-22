@@ -62,15 +62,20 @@
       }
     ]
   },
+  "worktree": {
+    "symlinkDirectories": [
+      ".yarn/cache"
+    ]
+  },
   "statusLine": {
     "type": "command",
     "command": "~/.claude/scripts/context-bar.sh"
   },
   "enabledPlugins": {
     "sentrux@sentrux-marketplace": true,
-    "dev-workflow@unimatrix-forge": true,
     "superpowers@claude-plugins-official": true,
-    "vercel@claude-plugins-official": true
+    "vercel@claude-plugins-official": true,
+    "dev-workflow@unimatrix-forge": true
   },
   "extraKnownMarketplaces": {
     "sentrux-marketplace": {
@@ -82,11 +87,11 @@
     "unimatrix-forge": {
       "source": {
         "source": "directory",
-        "path": "/Users/partiwari/code/ai-toolkit"
+        "path": "/Users/partiwari/code/unimatrix-forge"
       }
     }
   },
-  "effortLevel": "medium",
+  "effortLevel": "high",
   "autoUpdatesChannel": "latest",
   "skipDangerousModePermissionPrompt": true,
   "mcpServers": {
