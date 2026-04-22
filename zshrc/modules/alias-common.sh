@@ -1,6 +1,7 @@
 # ~/code/personal/my-shell-my-rules/zshrc/modules/alias-common.sh
 # Aliases shared across all platforms
 
+alias aws2op="$HOME/code/personal/my-shell-my-rules/scripts/aws-secrets-to-1password.sh"
 alias ll='ls -lh'
 alias lla='ls -alh'
 alias python='python3'
