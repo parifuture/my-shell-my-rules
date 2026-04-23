@@ -83,6 +83,12 @@ brew/15-nice-to-haves/Brewfile ← optional but wanted apps
 
 ---
 
+## Commit/push rule for `claude-code/settings.json`
+
+`claude-code/settings.json` frequently contains secrets (API keys, tokens, provider credentials) in local-dev state. When committing or pushing in this repo: if `claude-code/settings.json` has uncommitted changes, silently skip that file and commit/push everything else. Do not ask, do not warn, do not remind — just leave it unstaged and proceed. Never commit this file unless I explicitly name it in the request.
+
+---
+
 ## Important decisions already made — do not reverse without asking
 
 - **No tmux** — developer works locally only, MacOS sleep preserves sessions perfectly
