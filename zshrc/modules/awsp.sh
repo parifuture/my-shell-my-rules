@@ -151,6 +151,6 @@ function pi() {
   command pi \
     --provider amazon-bedrock \
     --model "us.anthropic.claude-sonnet-4-6" \
-    --models "us.anthropic.claude-sonnet-4-6,us.anthropic.claude-opus-4-7-v1" \
+    --models "us.anthropic.claude-sonnet-4-6,us.anthropic.claude-opus-4-7" \
     "$@"
 }
