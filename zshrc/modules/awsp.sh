@@ -129,3 +129,28 @@ function hermes() {
   AWS_REGION="${AWS_DEFAULT_REGION:-us-west-2}" \
     command hermes "$@"
 }
+
+#############################################################################
+# pi — Pi Coding Agent via Amazon Bedrock
+#############################################################################
+# Pass-through for package subcommands; all other invocations route through
+# the bedrock profile with Sonnet 4.6 as primary model.
+# Escape hatch: `command pi ...` bypasses the wrapper.
+
+function pi() {
+  case "${1:-}" in
+    install|remove|uninstall|update|list|config)
+      command pi "$@"
+      return
+      ;;
+  esac
+  if [[ "${AWSP_PROFILE:-}" != "bedrock" ]]; then
+    awsp bedrock || return 1
+  fi
+  AWS_REGION="${AWS_DEFAULT_REGION:-us-west-2}" \
+  command pi \
+    --provider amazon-bedrock \
+    --model "us.anthropic.claude-sonnet-4-6" \
+    --models "us.anthropic.claude-sonnet-4-6,us.anthropic.claude-opus-4-7-v1" \
+    "$@"
+}
