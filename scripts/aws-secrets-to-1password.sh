@@ -105,7 +105,7 @@ while IFS= read -r SECRET_NAME; do
     --secret-id "$SECRET_NAME" \
     --output json 2>&1) || {
     echo -e "  ${RED}✗  ${SECRET_NAME}${NC} (failed to fetch from AWS)"
-    ((FAILED++))
+    FAILED=$((FAILED+1))
     continue
   }
 
@@ -113,7 +113,7 @@ while IFS= read -r SECRET_NAME; do
 
   # Build a JSON template for op item create
   # This avoids CLI arg issues with multiline values, special chars, etc.
-  TEMPLATE_FILE=$(mktemp /tmp/op-template-XXXXXX.json)
+  TEMPLATE_FILE="$(mktemp -t op-template).json"
   trap "rm -f '$TEMPLATE_FILE'" EXIT
 
   echo "$SECRET_VALUE" | python3 -c "
@@ -167,23 +167,23 @@ print(hashlib.sha256(json.dumps(fields, sort_keys=True).encode()).hexdigest())
 
     if [[ "$EXISTING_FIELDS" == "$NEW_FIELDS" ]]; then
       echo -e "  ${YELLOW}⏭  ${SECRET_NAME}${NC} (up to date)"
-      ((SKIPPED++))
+      SKIPPED=$((SKIPPED+1))
       rm -f "$TEMPLATE_FILE"
       continue
     fi
 
     # Delete and recreate (op doesn't support bulk field updates via template)
-    if op item delete "$SECRET_NAME" --vault="$OP_VAULT" >/dev/null 2>&1 && \
+    if op item delete "$SECRET_NAME" --vault="$OP_VAULT" </dev/null >/dev/null 2>&1 && \
        op item create \
         --template="$TEMPLATE_FILE" \
         --title="$SECRET_NAME" \
         --vault="$OP_VAULT" \
-        --tags="$OP_TAG" >/dev/null 2>&1; then
+        --tags="$OP_TAG" </dev/null >/dev/null 2>&1; then
       echo -e "  ${GREEN}✓  ${SECRET_NAME}${NC} (updated)"
-      ((UPDATED++))
+      UPDATED=$((UPDATED+1))
     else
       echo -e "  ${RED}✗  ${SECRET_NAME}${NC} (failed to update in 1Password)"
-      ((FAILED++))
+      FAILED=$((FAILED+1))
     fi
   else
     # Create new item
@@ -191,12 +191,12 @@ print(hashlib.sha256(json.dumps(fields, sort_keys=True).encode()).hexdigest())
       --template="$TEMPLATE_FILE" \
       --title="$SECRET_NAME" \
       --vault="$OP_VAULT" \
-      --tags="$OP_TAG" >/dev/null 2>&1; then
+      --tags="$OP_TAG" </dev/null >/dev/null 2>&1; then
       echo -e "  ${GREEN}✓  ${SECRET_NAME}${NC}"
-      ((SYNCED++))
+      SYNCED=$((SYNCED+1))
     else
       echo -e "  ${RED}✗  ${SECRET_NAME}${NC} (failed to create in 1Password)"
-      ((FAILED++))
+      FAILED=$((FAILED+1))
     fi
   fi
 
