@@ -51,6 +51,21 @@ who() {
   fi
 }
 
+# Wrap brew so `brew update` and `brew upgrade` also refresh uv-managed Python tools.
+# Other subcommands (install, search, info, etc.) pass through unchanged. To bypass
+# the wrapper for a single call, use `command brew upgrade ...`.
+brew() {
+  case "${1:-}" in
+    update|upgrade)
+      command brew "$@" || return $?
+      "$DOTFILES/scripts/uv-refresh.sh"
+      ;;
+    *)
+      command brew "$@"
+      ;;
+  esac
+}
+
 # Guard: inside ~/code/backstage, intercept plain `yarn` and nudge toward `opyarn`.
 # Uses a function (not an alias) because it needs to inspect $PWD at call time.
 # Startup cost is a single function definition (microseconds); call-time cost is one
