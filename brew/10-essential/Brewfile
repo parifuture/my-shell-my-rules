@@ -52,6 +52,7 @@ brew "helm"
 brew "kubernetes-cli"
 brew "argo"              # Argo Workflows CLI
 brew "argocd"            # Argo CD CLI — GitOps continuous delivery
+brew "harbor-cli"        # Harbor container registry CLI
 
 # Cloud
 cask "google-cloud-sdk"  # gcloud CLI
