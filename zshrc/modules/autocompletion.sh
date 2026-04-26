@@ -2,6 +2,17 @@
 
 zmodload zsh/complist
 
+# WSL2 + Docker Desktop: /usr/share/zsh/vendor-completions/_docker is a symlink
+# into /mnt/wsl/docker-desktop/..., which only exists while Docker Desktop is
+# running. When it's stopped the symlink dangles and compinit prints
+# "no such file or directory" for every compinit call. Drop the whole
+# vendor-completions dir from fpath when the symlink is broken; brew supplies
+# the completions we actually use (_curl, _gh, _fd, _bat, ...). On macOS the
+# path doesn't exist as a symlink so this block is a no-op.
+if [[ -L /usr/share/zsh/vendor-completions/_docker && ! -e /usr/share/zsh/vendor-completions/_docker ]]; then
+  fpath=(${fpath:#/usr/share/zsh/vendor-completions})
+fi
+
 # zsh-completions (brew): extra completion functions (yarn, etc.)
 # Must be prepended to fpath BEFORE compinit so new _* functions are picked up.
 if type brew &>/dev/null; then
